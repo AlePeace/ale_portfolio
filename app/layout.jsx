@@ -1,5 +1,7 @@
 import { JetBrains_Mono } from "next/font/google"
 import "./globals.css"
+import IDEShell from "@/components/IDEShell"
+import JsonLd from "@/components/JsonLd"
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -7,16 +9,79 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 })
 
+const BASE_URL = "https://alessandrosparano.com"
+
 export const metadata = {
-  title: "Alessandro Sparano — Frontend Developer",
-  description: "Frontend Developer presso web agency italiana. Portfolio.",
+  metadataBase: new URL(BASE_URL),
+
+  title: {
+    default:  "Alessandro Sparano — Creative Developer",
+    template: "%s — Alessandro Sparano",
+  },
+  description:
+    "Creative Developer presso QCore Agency, Napoli. Specializzato in Next.js, React e WordPress headless. Portfolio di progetti web, UI design e frontend moderno.",
+  keywords: [
+    "Alessandro Sparano",
+    "Creative Developer",
+    "Frontend Developer",
+    "Next.js",
+    "React",
+    "WordPress headless",
+    "Tailwind CSS",
+    "Sanity CMS",
+    "Web Developer Napoli",
+    "QCore Agency",
+    "Portfolio",
+  ],
+  authors:  [{ name: "Alessandro Sparano", url: BASE_URL }],
+  creator:  "Alessandro Sparano",
+
+  openGraph: {
+    type:        "website",
+    locale:      "it_IT",
+    url:         BASE_URL,
+    siteName:    "Alessandro Sparano",
+    title:       "Alessandro Sparano — Creative Developer",
+    description: "Creative Developer @ QCore Agency. Next.js, React, WordPress headless. Napoli, Italia.",
+    images: [
+      {
+        url:    "/opengraph-image",
+        width:  1200,
+        height: 630,
+        alt:    "Alessandro Sparano — Creative Developer",
+      },
+    ],
+  },
+
+  twitter: {
+    card:        "summary_large_image",
+    title:       "Alessandro Sparano — Creative Developer",
+    description: "Creative Developer @ QCore Agency. Next.js, React, WordPress headless.",
+    images:      ["/opengraph-image"],
+  },
+
+  robots: {
+    index:  true,
+    follow: true,
+    googleBot: {
+      index:               true,
+      follow:              true,
+      "max-image-preview": "large",
+      "max-snippet":       -1,
+    },
+  },
+
+  alternates: {
+    canonical: BASE_URL,
+  },
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="it" className={jetbrainsMono.variable}>
-      <body className="font-mono bg-bg text-text min-h-screen antialiased">
-        {children}
+      <body className="font-mono bg-bg text-text antialiased">
+        <JsonLd />
+        <IDEShell>{children}</IDEShell>
       </body>
     </html>
   )

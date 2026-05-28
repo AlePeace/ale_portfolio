@@ -1,12 +1,19 @@
 # Portfolio — CONTEXT.md
 > Brief di progetto per Claude Code. Leggere prima di qualsiasi modifica.
+> Ultimo aggiornamento: 2026-05-28
 
 ---
 
 ## Chi sono
 
-**Alessandro Sparano** — Frontend Developer presso una web agency italiana.  
-Lavoro principalmente su siti per clienti locali, quindi il portfolio deve essere leggibile anche da realtà non tecniche, pur mantenendo un'estetica da developer.
+**Alessandro Sparano** — Creative Developer presso QCore Agency, Napoli.
+Lavoro principalmente su siti per clienti locali (e-commerce, hospitality, elettorale), quindi il portfolio deve essere leggibile anche da realtà non tecniche, pur mantenendo un'estetica da developer.
+
+### Contatti
+- Email: aledev@alessandrosparano.com
+- Telefono: +39 349 32 02 675
+- GitHub: github.com/AlePeace
+- Web: alessandrosparano.com
 
 ---
 
@@ -14,35 +21,26 @@ Lavoro principalmente su siti per clienti locali, quindi il portfolio deve esser
 
 | Tecnologia | Ruolo | Note |
 |---|---|---|
-| Next.js (App Router) | Framework principale | Routing basato su cartelle |
+| Next.js 16 (App Router) | Framework principale | Routing basato su cartelle, Turbopack |
 | React | UI | Solo JSX, niente TypeScript |
-| Vercel | Deploy | |
+| Vercel | Deploy | Produzione su alessandrosparano.com |
 | Sanity CMS | Gestione contenuti | Previsto per il futuro, non nella v1 |
 | GSAP | Animazioni | Entrance animations, transizioni, effetti testo |
-| Lenis | Smooth scroll | Scroll fluido — valutare se migliora l'esperienza su questo layout |
+| Lenis | Smooth scroll | Da valutare |
+| Framer Motion | Transizioni pagina | `AnimatePresence` — già installato e in uso |
 | JetBrains Mono | Font | Sia per UI che per il codice mockato |
+| Tailwind CSS v4 | Styling | Usa `@import "tailwindcss"` + `@theme inline` |
 
-> ⚠️ **Niente TypeScript.** Tutto il codice è JavaScript puro con JSX. Nessun `.ts` o `.tsx`.
+> ⚠️ **Niente TypeScript.** Solo `.js` e `.jsx`. Mai.
+> ⚠️ **Tailwind v4** — NON usare la sintassi di configurazione v3.
 
 ---
 
 ## Concept & Estetica
 
-Il sito non è un clone di un IDE, ma usa il **linguaggio visivo di un editor di codice** (Zed / VS Code) come design system.
-
-Chi è del settore lo riconosce e apprezza. Chi non lo è vede semplicemente un sito bello, ordinato e professionale.
-
-### Elementi IDE da includere
-- **Titlebar** con window controls stile KDE/Linux (flat, geometrici — NON i pallini macOS)
-- **Sidebar** con file tree per navigare le sezioni del sito
-- **Tab bar** con le pagine aperte come file
-- **Line numbers** nell'area contenuto
-- **Breadcrumb** sopra l'editor
-- **Minimap** decorativa sulla destra
-- **Status bar** in fondo con info tipo: branch git, stato deploy, OS, nome font
+Il sito usa il **linguaggio visivo di un code editor** (Zed / VS Code) come design system — non è un clone di IDE, è un sito web usabile con estetica da sviluppatore.
 
 ### Palette colori
-Ispirata a Material Theme / Zed dark:
 
 ```
 --bg:        #0d0f16   background principale
@@ -51,7 +49,7 @@ Ispirata a Material Theme / Zed dark:
 --border:    #252838   bordi e separatori
 --muted:     #4a5270   testo secondario, icone
 --text:      #cdd6f4   testo principale
---accent:    #4ec9b0   verde acqua — colore principale (active tab, cursore, highlights)
+--accent:    #4ec9b0   verde acqua — colore principale
 --keyword:   #c792ea   viola — keyword JS
 --string:    #c3e88d   verde chiaro — stringhe
 --fn:        #82aaff   blu — nomi funzione
@@ -62,138 +60,146 @@ Ispirata a Material Theme / Zed dark:
 --statusbar: #0b5e50   verde scuro — status bar
 ```
 
-### Font
-**JetBrains Mono** — sia per la UI che per il "codice" mockato nel contenuto.  
-Da importare da Google Fonts con ligature abilitate.
+---
+
+## Struttura File Attuale
+
+```
+app/
+├── layout.jsx              ← shell IDE globale + SEO completa
+├── page.jsx                ← home (Hero + HomeCards)
+├── opengraph-image.jsx     ← OG image dinamica (ImageResponse, edge)
+├── sitemap.js              ← sitemap.xml
+├── robots.js               ← robots.txt
+├── not-found.jsx           ← pagina 404
+├── about/
+│   └── page.jsx            ✅ implementata
+├── projects/
+│   ├── page.jsx            ✅ implementata
+│   └── new/
+│       └── page.jsx        ✅ implementata — CTA nuovo progetto
+├── skills/
+│   └── page.jsx            ✅ implementata
+└── contact/
+    └── page.jsx            ✅ implementata
+
+components/
+├── IDEShell.jsx
+├── Sidebar.jsx
+├── TabBar.jsx              ← include tab dimmed "new-project.jsx"
+├── StatusBar.jsx
+├── TitleBar.jsx
+├── PageTransition.jsx
+├── Hero.jsx                ← home hero con syntax highlighting
+├── HomeCards.jsx           ← card delle sezioni (colonna destra su desktop)
+├── AboutCode.jsx           ← contenuto pagina about
+├── ProjectsCode.jsx        ← contenuto pagina projects con thumbnail
+├── NewProjectCode.jsx      ← file tree template + CTA
+├── SkillsCode.jsx          ← contenuto pagina skills
+├── ContactCode.jsx         ← contenuto pagina contact
+├── NotFoundCode.jsx        ← contenuto 404
+└── JsonLd.jsx              ← schema JSON-LD Person (nel layout)
+
+utils/
+└── fetchSkills.js
+
+public/
+├── cv/
+│   └── cv_sparano.pdf      ← CV scaricabile (linkato da /about)
+└── previews/
+    ├── mosic.png           ✅
+    ├── soundpopradio.png   ✅
+    ├── quantumcrypto.png   ← TODO
+    ├── portfolio-v1.png    ← TODO
+    └── osteopata.png       ← TODO
+```
 
 ---
 
-## Struttura App Router
+## Pagine — Stato Attuale
 
-```
-src/
-├── app/
-│   ├── layout.jsx        ← shell IDE globale (sidebar, tabs, statusbar, titlebar)
-│   ├── page.jsx          ← home
-│   ├── about/
-│   │   └── page.jsx
-│   ├── projects/
-│   │   └── page.jsx
-│   └── contact/
-│       └── page.jsx
-├── components/
-│   ├── IDEShell.jsx      ← wrapper principale con tutti gli elementi IDE
-│   ├── Sidebar.jsx       ← file tree navigabile
-│   ├── TabBar.jsx        ← tabs con le pagine
-│   ├── StatusBar.jsx     ← barra in fondo
-│   ├── TitleBar.jsx      ← titlebar con window controls KDE
-│   └── Hero.jsx          ← hero della home
-└── utils/
-    └── fetchSkills.js    ← utility che restituisce skills/stack (mock locale nella v1)
-```
+### `/` — Home ✅
+Hero con JSDoc + JSX reale con syntax highlighting.
+Sotto: griglia di `HomeCards` — su desktop appaiono come colonna destra (w-72, border-l), su mobile sotto il codice in griglia 2×2.
 
----
+### `/about` ✅
+Modulo JS con:
+- JSDoc header (name, role, location, agency)
+- `const profile` — email, web, github
+- `const story` — template literal con bio narrativa (percorso dal design al codice)
+- `const experience` — QCore Agency 2024→now, Studio F. Sparano 2019–2021, Studio Mono Agency 2018
+- `const education` — Vanvitelli (Master + Bachelor Design), ILAS Academy 110/110 lode 2023, Udemy WP
+- `const certifications` — completate + WIP (React, Next.js/WP Headless, Three.js Journey)
+- `const aiTools` — Claude Code CLI, VS Code+Copilot, Zed+AI, Cursor, Figma AI
+- Link download CV → `/cv/cv_sparano.pdf`
 
-## Pagine previste
+### `/projects` ✅
+`const projects = [...]` con 5 progetti:
 
-### `/` — Home
-Il contenuto della pagina è presentato come codice JSX reale.
+| # | Progetto | Tipo | Status | Link |
+|---|----------|------|--------|------|
+| 01 | Mosic | ILAS project | mockup | nessuno |
+| 02 | SoundPop Radio | ILAS project | live | legacy.alessandrosparano.com/soundpopradio |
+| 03 | QuantumCrypto | ILAS project | live | legacy.alessandrosparano.com/quantumcrypto |
+| 04 | Portfolio v1 | personal | legacy | legacy.alessandrosparano.com/portfolio |
+| 05 | Studio Osteopata | collaboration | live | elisasaviano.it (con Francesco Li Petri → francescolipetri.it) |
 
-- **JSDoc comment** come hero text — il `@returns` è la tagline
-- `fetchSkills()` importata da utils, risultato passato come prop a `<Hero>`
-- Il codice mostrato nell'editor è *vero codice* del progetto, non decorazione
+Thumbnail grayscale con label overlay (sfondo nero, testo giallo `--class`).
+In fondo: link `// ── new project ──` → `/projects/new`.
 
-```jsx
-/**
- * @author  Alessandro Sparano
- * @role    Frontend Developer · Web Agency
- * @returns un dev che trasforma idee in esperienze web
- */
+### `/projects/new` ✅
+File tree di due strutture template (Next.js + WordPress) in stile syntax-highlighted.
+CTA box con bottone email + link a /contact.
 
-import { fetchSkills } from '@/utils/fetchSkills'
-import Hero from '@/components/Hero'
+### `/skills` ✅
+Body completo di `fetchSkills()` con tutte le categorie skill.
 
-const skills = await fetchSkills({
-  stack:   [ 'Next.js', 'React', 'Sanity', 'Vercel' ],
-  passion: [ 'UI craftmanship', 'clean code' ],
-  agency:  true,
-})
-
-export default function Home() {
-  return (
-    <Hero name="Alessandro Sparano" skills={skills} />
-  )
-}
-```
-
-### `/about` — Chi sono
-Presentazione come oggetto JavaScript con i dati personali/professionali.
-
-### `/projects` — Progetti
-Ogni progetto come "file aperto" in un tab. Attualmente 3 progetti personali + 1 in collaborazione con un collega + esperienza in agenzia.
-
-### `/contact` — Contatti
-Form di contatto o lista link (email, GitHub, LinkedIn).
+### `/contact` ✅
+`const contact = { ... }` con tutti i contatti cliccabili.
+CTA `→ inizia un nuovo progetto` → `/projects/new`.
 
 ---
 
-## Status bar — contenuto
+## SEO — Implementata ✅
 
-```
-sinistra:  ⎇ main  |  ✓ deployed on Vercel  |  0 errors · 0 warnings
-destra:    Zorin OS  |  JavaScript (React)  |  JetBrains Mono
-```
-
-> Zorin OS al posto del solito "UTF-8" — piccolo easter egg per chi sa.
-
----
-
-## Animazioni & Transizioni
-
-### GSAP
-Usato per animazioni mirate, non per tutto. Principi guida: **sottile, veloce, intenzionale**.
-
-Usi previsti:
-- Entrance animation dell'hero al primo caricamento (line numbers che appaiono, codice che si "scrive")
-- Hover sui project card — reveal leggero
-- Testo che appare riga per riga come se venisse digitato (solo sull'hero, non ovunque)
-- Niente scroll-trigger pesante — solo enhacement progressivo
-
-### Lenis (smooth scroll)
-Da valutare in fase di sviluppo. Il layout IDE è prevalentemente **a pagina intera senza scroll lungo**, quindi Lenis potrebbe avere poco impatto rispetto a un portfolio classico. Utile soprattutto se la pagina `/projects` diventa lunga. Integrare con GSAP ScrollTrigger se serve.
-
-### Transizioni tra pagine — sono importanti ✅
-In un portfolio con estetica IDE le transizioni sono **una delle cose più memorabili** e vanno curate. L'idea non è una transizione generica (fade, slide) ma qualcosa che parla il linguaggio del sito.
-
-**Concept consigliato — "tab switch":**
-Quando si naviga tra pagine, animare come se si stesse cliccando un tab nell'editor:
-1. Il contenuto corrente fa un leggero fade-out verso il basso (come un file che si chiude)
-2. Il tab attivo nella tab bar si aggiorna con una transizione fluida
-3. Il nuovo contenuto entra dall'alto con un leggero fade-in + translate
-
-**Concept alternativo — "compile flash":**
-Un brevissimo flash/glitch orizzontale (tipo scan line) che copre l'editor per ~150ms prima che appaia il nuovo contenuto. Molto in tema, da usare con parsimonia.
-
-**Implementazione in Next.js App Router:**
-App Router non ha un sistema di transizioni nativo fluido come Pages Router. Opzioni:
-- `framer-motion` con `AnimatePresence` — il più semplice e affidabile con App Router
-- GSAP manuale con `useLayoutEffect` e contesto globale
-- **Consigliato per la v1:** `framer-motion` per le transizioni di pagina + GSAP per micro-animazioni interne
-
-> Aggiungere `framer-motion` allo stack se si procede con le transizioni.
+- Metadata globale con title template `%s — Alessandro Sparano`
+- OpenGraph completo (og:title, og:description, og:image, og:url, og:locale `it_IT`)
+- Twitter Card `summary_large_image`
+- OG image dinamica 1200×630 in stile IDE (`app/opengraph-image.jsx`, edge runtime)
+- JSON-LD schema `Person` (`components/JsonLd.jsx` nel layout)
+- Sitemap → `/sitemap.xml`
+- robots.txt → `/robots.txt`
+- URL canonical su ogni pagina
+- `metadataBase: https://alessandrosparano.com`
 
 ---
 
-## Note implementative
+## DNS — Setup in corso
 
-- **Niente TypeScript** — conferma: solo `.js` e `.jsx`
-- **Sanity** non nella v1, ma la struttura deve permettere di aggiungerlo facilmente in futuro (es. `fetchSkills` già come utility separata)
-- **GSAP** — installare `gsap`, usare `useGSAP()` hook per cleanup automatico nei componenti React
-- **Lenis** — installare `lenis`, inizializzare in `layout.jsx` solo se la pagina ha scroll significativo
-- **Framer Motion** — installare `framer-motion` per transizioni tra pagine con `AnimatePresence`
-- **Mobile**: sidebar collassabile, tab bar scrollabile orizzontalmente
-- I window controls KDE sono SVG inline — linea (minimize), quadrato (maximize), X (close)
-- La status bar usa `position: sticky; bottom: 0` nel layout
+- DNS authority: **Netsons** (NS non spostati su Vercel)
+- `alessandrosparano.com` → A record `76.76.21.21` (Vercel)
+- `www` → CNAME `cname.vercel-dns.com`
+- `legacy.alessandrosparano.com` → server Netsons (stessa `public_html`, shared document root)
+- MX records → invariati su Netsons (mail rimane lì)
+
+Cartelle su Netsons `public_html/`:
+- `soundpopradio/` — progetto ILAS live
+- `quantumcrypto/` — progetto ILAS live
+- `portfolio/` — vecchio portfolio WordPress (wp-config con WP_HOME + WP_SITEURL impostati su legacy.alessandrosparano.com/portfolio)
+
+**TODO:** aggiungere rewrites in `next.config.js` per fare proxy dei path `/soundpopradio`, `/quantumcrypto`, `/portfolio` verso il sottodominio legacy.
+
+---
+
+## TODO
+
+- [ ] Favicon + apple-touch-icon (logo in lavorazione)
+- [ ] Rewrites in `next.config.js` per i path legacy (quando DNS propaga)
+- [ ] Preview mancanti: quantumcrypto.png, portfolio-v1.png, osteopata.png
+- [ ] Animazione GSAP entrance hero (typing effect)
+- [ ] Valutare Lenis
+- [ ] LinkedIn se esiste un profilo
+- [ ] Test su iPhone reale dopo switch DNS
 
 ---
 
@@ -202,6 +208,8 @@ App Router non ha un sistema di transizioni nativo fluido come Pages Router. Opz
 - Niente pallini macOS nei window controls
 - Niente TypeScript, niente `.ts`/`.tsx`
 - Non replicare 1:1 un IDE — deve restare un sito web usabile
-- Non esagerare con le animazioni — il cursore che lampeggia, hover sottili, entrance animation dell'hero. Stop.
-- Niente scroll-jacking aggressivo — Lenis deve rendere lo scroll più fluido, non controllarlo
-- Niente transizioni di pagina lente — massimo 300-400ms totali, l'utente non deve aspettare
+- Non esagerare con le animazioni
+- Niente scroll-jacking aggressivo
+- Niente transizioni lente — max 300–400ms
+- NON usare sintassi configurazione Tailwind v3
+- `break-words` su mobile nel testo hero, mai `break-all`
