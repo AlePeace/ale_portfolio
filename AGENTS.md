@@ -34,6 +34,7 @@ Clients are often non-technical, so the portfolio must be readable by anyone whi
 | Framer Motion | Page transitions | `AnimatePresence` for route changes — already installed & in use |
 | JetBrains Mono | Font | Both for UI and mocked code content |
 | Tailwind CSS v4 | Styling | Uses `@import "tailwindcss"` + `@theme inline` syntax |
+| @next/third-parties | Analytics | GoogleTagManager + GoogleAnalytics components |
 
 **No TypeScript.** All code is plain JavaScript with JSX. No `.ts` or `.tsx` files ever.
 
@@ -49,7 +50,7 @@ Developers recognize and appreciate it. Non-developers simply see a clean, profe
 
 - **Titlebar** — KDE/Linux-style window controls (flat, geometric — NOT macOS traffic lights)
 - **Sidebar** — navigable file tree (desktop always visible, mobile overlay)
-- **Tab bar** — open pages as file tabs, including dimmed `new-project.jsx` tab
+- **Tab bar** — open pages as file tabs, including dimmed `new-project.jsx` tab and green `curriculum.pdf` download tab
 - **Line numbers** — in all content areas
 - **Status bar** — bottom bar with git branch, deploy status, OS, font name
 - **Page transitions** — Framer Motion `AnimatePresence`, 180ms ease
@@ -84,7 +85,8 @@ Developers recognize and appreciate it. Non-developers simply see a clean, profe
 
 ```
 app/
-├── layout.jsx              ← global IDE shell + full SEO metadata
+├── layout.jsx              ← global IDE shell + SEO metadata + GTM + GA4
+├── icon.svg                ← favicon (must be icon.*, NOT favicon.svg)
 ├── page.jsx                ← home (Hero + HomeCards side by side on desktop)
 ├── opengraph-image.jsx     ← dynamic OG image (ImageResponse, edge runtime)
 ├── sitemap.js              ← sitemap.xml
@@ -141,7 +143,7 @@ public/
 Hero showing real JSDoc + JSX code with syntax highlighting.
 Below the code, a 2×2 grid of `HomeCards` on mobile; on desktop the cards appear as a right column (w-72) next to the code, separated by a border.
 
-Cards link to: about.jsx, projects.jsx, fetchSkills.js, contact.jsx.
+Cards: about.jsx, projects.jsx, fetchSkills.js, **curriculum.pdf** (download), contact.jsx.
 
 ### `/about` — Chi sono ✅
 
@@ -208,6 +210,8 @@ CTA button `→ inizia un nuovo progetto` links to `/projects/new`.
 | robots.txt | `app/robots.js` → /robots.txt |
 | Canonical URLs | each page metadata |
 | Per-page title + description | about, projects, skills, contact |
+| Google Tag Manager | `app/layout.jsx` via `@next/third-parties` — ID: GTM-NHGSMQ3D |
+| Google Analytics 4 | `app/layout.jsx` via `@next/third-parties` — ID: G-99TR9N1F5F |
 
 metadataBase: `https://alessandrosparano.com`
 
@@ -267,17 +271,21 @@ Likely low impact given the full-page layout. Evaluate when /projects gets longe
 - **Mobile**: sidebar collapsible overlay, tab bar horizontally scrollable, cards stack below hero
 - KDE window controls: inline SVG (X, minimize line, maximize square)
 - Status bar: `position: sticky; bottom: 0`
-- Hero text: `break-words` on mobile (NOT `break-all`) to avoid mid-word breaks
+- All page text: `break-words` on mobile (NEVER `break-all`) — applies to Hero, AboutCode, SkillsCode, ProjectsCode, NotFoundCode
 - Token-based line rendering pattern used in all page components (Hero, AboutCode, SkillsCode, etc.)
+- **Favicon**: must be `app/icon.svg` (or `icon.png`) — `favicon.svg` is NOT picked up by Next.js App Router
+- **OG image**: do NOT manually specify `openGraph.images` or `twitter.images` in metadata when `app/opengraph-image.jsx` exists — Next.js handles the URL automatically with version hash
+- **Tab bar download tabs**: use `<a href="..." download>` instead of `<Link>` — download tabs styled with `text-string` (green) to distinguish from nav tabs
+- **Analytics**: GTM loaded via `<GoogleTagManager>` before `<body>`, GA4 via `<GoogleAnalytics>` after `</body>` — both from `@next/third-parties/google`
 
 ---
 
 ## TODO / Next Steps
 
-- [ ] Add favicon + apple-touch-icon (logo being designed)
+- [x] Add favicon — `app/icon.svg` ✅
+- [x] Google Tag Manager + GA4 via `@next/third-parties` ✅
 - [ ] Add `next.config.js` rewrites for legacy subpaths once DNS propagates
 - [ ] Add remaining preview images: quantumcrypto.png, portfolio-v1.png, osteopata.png
-- [ ] Update osteopata URL from placeholder to real URL ← already done (elisasaviano.it)
 - [ ] Evaluate Lenis integration
 - [ ] GSAP hero entrance animation
 - [ ] `/contact` — consider adding LinkedIn if account exists

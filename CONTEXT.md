@@ -1,6 +1,6 @@
 # Portfolio — CONTEXT.md
 > Brief di progetto per Claude Code. Leggere prima di qualsiasi modifica.
-> Ultimo aggiornamento: 2026-05-28
+> Ultimo aggiornamento: 2026-05-29
 
 ---
 
@@ -30,6 +30,7 @@ Lavoro principalmente su siti per clienti locali (e-commerce, hospitality, elett
 | Framer Motion | Transizioni pagina | `AnimatePresence` — già installato e in uso |
 | JetBrains Mono | Font | Sia per UI che per il codice mockato |
 | Tailwind CSS v4 | Styling | Usa `@import "tailwindcss"` + `@theme inline` |
+| @next/third-parties | Analytics | GoogleTagManager (GTM-NHGSMQ3D) + GoogleAnalytics (G-99TR9N1F5F) |
 
 > ⚠️ **Niente TypeScript.** Solo `.js` e `.jsx`. Mai.
 > ⚠️ **Tailwind v4** — NON usare la sintassi di configurazione v3.
@@ -66,7 +67,8 @@ Il sito usa il **linguaggio visivo di un code editor** (Zed / VS Code) come desi
 
 ```
 app/
-├── layout.jsx              ← shell IDE globale + SEO completa
+├── layout.jsx              ← shell IDE globale + SEO + GTM + GA4
+├── icon.svg                ← favicon (DEVE chiamarsi icon.*, non favicon.svg)
 ├── page.jsx                ← home (Hero + HomeCards)
 ├── opengraph-image.jsx     ← OG image dinamica (ImageResponse, edge)
 ├── sitemap.js              ← sitemap.xml
@@ -86,7 +88,7 @@ app/
 components/
 ├── IDEShell.jsx
 ├── Sidebar.jsx
-├── TabBar.jsx              ← include tab dimmed "new-project.jsx"
+├── TabBar.jsx              ← tab navigazione + tab dimmed "new-project.jsx" + tab download "curriculum.pdf" (verde)
 ├── StatusBar.jsx
 ├── TitleBar.jsx
 ├── PageTransition.jsx
@@ -121,6 +123,7 @@ public/
 ### `/` — Home ✅
 Hero con JSDoc + JSX reale con syntax highlighting.
 Sotto: griglia di `HomeCards` — su desktop appaiono come colonna destra (w-72, border-l), su mobile sotto il codice in griglia 2×2.
+Card presenti: about.jsx, projects.jsx, fetchSkills.js, **curriculum.pdf** (download diretto), contact.jsx.
 
 ### `/about` ✅
 Modulo JS con:
@@ -171,6 +174,10 @@ CTA `→ inizia un nuovo progetto` → `/projects/new`.
 - robots.txt → `/robots.txt`
 - URL canonical su ogni pagina
 - `metadataBase: https://alessandrosparano.com`
+- Google Tag Manager — GTM-NHGSMQ3D (`@next/third-parties`)
+- Google Analytics 4 — G-99TR9N1F5F (`@next/third-parties`)
+
+> ⚠️ NON specificare manualmente `openGraph.images` o `twitter.images` nel metadata quando esiste `app/opengraph-image.jsx` — Next.js genera automaticamente la URL con hash di versione.
 
 ---
 
@@ -193,7 +200,8 @@ Cartelle su Netsons `public_html/`:
 
 ## TODO
 
-- [ ] Favicon + apple-touch-icon (logo in lavorazione)
+- [x] Favicon → `app/icon.svg` ✅
+- [x] Google Tag Manager + GA4 ✅
 - [ ] Rewrites in `next.config.js` per i path legacy (quando DNS propaga)
 - [ ] Preview mancanti: quantumcrypto.png, portfolio-v1.png, osteopata.png
 - [ ] Animazione GSAP entrance hero (typing effect)
@@ -212,4 +220,7 @@ Cartelle su Netsons `public_html/`:
 - Niente scroll-jacking aggressivo
 - Niente transizioni lente — max 300–400ms
 - NON usare sintassi configurazione Tailwind v3
-- `break-words` su mobile nel testo hero, mai `break-all`
+- `break-words` su mobile in TUTTI i componenti di testo (Hero, AboutCode, SkillsCode, ProjectsCode, NotFoundCode) — mai `break-all`
+- La favicon SVG deve chiamarsi `app/icon.svg`, non `app/favicon.svg` (Next.js App Router non supporta `favicon.*` per SVG)
+- NON specificare `openGraph.images` / `twitter.images` manualmente quando esiste `app/opengraph-image.jsx`
+- Tab di download nella TabBar usano `<a download>`, non `<Link>`, e sono colorati con `text-string` (verde)
