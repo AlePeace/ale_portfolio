@@ -1,4 +1,5 @@
 import { JetBrains_Mono } from "next/font/google"
+import { GoogleTagManager, GoogleAnalytics } from "@next/third-parties/google"
 import "./globals.css"
 import IDEShell from "@/components/IDEShell"
 import JsonLd from "@/components/JsonLd"
@@ -79,10 +80,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="it" className={jetbrainsMono.variable}>
+      <GoogleTagManager gtmId="GTM-NHGSMQ3D" />
       <body className="font-mono bg-bg text-text antialiased">
         <JsonLd />
         <IDEShell>{children}</IDEShell>
       </body>
+      <GoogleAnalytics gaId="G-99TR9N1F5F" />
     </html>
   )
 }
