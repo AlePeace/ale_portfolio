@@ -82,7 +82,7 @@ function LineRow({ num, tokens }) {
       <span className="w-6 md:w-8 text-right text-[12px] text-muted select-none mr-4 md:mr-8 shrink-0 tabular-nums">
         {num}
       </span>
-      <span className="text-[14px] leading-[1.6] whitespace-pre-wrap md:whitespace-pre break-all md:break-normal">
+      <span className="text-[14px] leading-[1.6] whitespace-pre-wrap md:whitespace-pre break-words md:break-normal">
         {tokens.map((tok, j) => (
           <span key={j} className={tok.c}>{tok.t}</span>
         ))}
