@@ -44,21 +44,12 @@ export const metadata = {
     siteName:    "Alessandro Sparano",
     title:       "Alessandro Sparano — Creative Developer",
     description: "Creative Developer @ QCore Agency. Next.js, React, WordPress headless. Napoli, Italia.",
-    images: [
-      {
-        url:    "/opengraph-image",
-        width:  1200,
-        height: 630,
-        alt:    "Alessandro Sparano — Creative Developer",
-      },
-    ],
   },
 
   twitter: {
     card:        "summary_large_image",
     title:       "Alessandro Sparano — Creative Developer",
     description: "Creative Developer @ QCore Agency. Next.js, React, WordPress headless.",
-    images:      ["/opengraph-image"],
   },
 
   robots: {
