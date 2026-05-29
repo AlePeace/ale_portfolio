@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Background -->
+  <rect width="32" height="32" rx="6" fill="#0d0f16"/>
+
+  <!-- Accent line bicolore -->
+  <line x1="0" y1="0" x2="16" y2="0" stroke="#c792ea" stroke-width="2"/>
+  <line x1="16" y1="0" x2="32" y2="0" stroke="#4ec9b0" stroke-width="2"/>
+
+  <!-- { viola -->
+  <text x="1" y="23" font-family="JetBrains Mono, monospace" font-size="19" font-weight="300" fill="#c792ea">{</text>
+
+  <!-- as -->
+  <text x="9" y="23" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700" fill="#cdd6f4">as</text>
+
+  <!-- } verde -->
+  <text x="22" y="23" font-family="JetBrains Mono, monospace" font-size="19" font-weight="700" fill="#4ec9b0">}</text>
+
+  <!-- underline -->
+  <line x1="9" y1="25" x2="22" y2="25" stroke="#4ec9b0" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- dot bottom -->
+  <circle cx="29" cy="29" r="1.5" fill="#f78c6c" opacity="0.8"/>
+</svg>

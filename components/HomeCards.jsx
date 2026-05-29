@@ -49,6 +49,17 @@ const cards = [
     ],
   },
   {
+    filename: "curriculum.pdf",
+    download: "/cv/cv_sparano.pdf",
+    dot:      "text-string",
+    preview: [
+      [{ t: "// Alessandro Sparano", c: T.c }],
+      [{ t: "type", c: T.k }, { t: ": ", c: T.tx }, { t: "'curriculum vitae'", c: T.s }],
+      [{ t: "format", c: T.p }, { t: ": ", c: T.tx }, { t: "'PDF'", c: T.cl }],
+      [{ t: "→ ", c: T.a }, { t: "download", c: T.f }],
+    ],
+  },
+  {
     filename: "contact.jsx",
     path:     "/contact",
     dot:      "text-fn",
@@ -79,14 +90,9 @@ export default function HomeCards() {
       animate="visible"
       className="px-4 pb-8 pt-6 md:pt-10 md:px-4 grid grid-cols-2 md:grid-cols-1 gap-3"
     >
-      {cards.map((card) => (
-        <motion.div key={card.path} variants={cardAnim}>
-          <Link
-            href={card.path}
-            className="group flex flex-col border border-border rounded overflow-hidden
-              hover:border-accent transition-colors duration-200 bg-surface"
-          >
-            {/* header — tab-like */}
+      {cards.map((card) => {
+        const inner = (
+          <>
             <div className="flex items-center gap-2 px-3 py-2 border-b border-border bg-titlebar">
               <span className={`text-[9px] ${card.dot}`}>●</span>
               <span className="text-[11px] text-muted font-mono group-hover:text-text transition-colors">
@@ -96,8 +102,6 @@ export default function HomeCards() {
                 →
               </span>
             </div>
-
-            {/* mini code preview */}
             <div className="px-3 py-2.5 flex flex-col gap-0.5">
               {card.preview.map((tokens, i) => (
                 <div key={i} className="flex text-[11px] leading-[1.7] font-mono whitespace-pre overflow-hidden">
@@ -110,9 +114,19 @@ export default function HomeCards() {
                 </div>
               ))}
             </div>
-          </Link>
-        </motion.div>
-      ))}
+          </>
+        )
+        const cls = "group flex flex-col border border-border rounded overflow-hidden hover:border-accent transition-colors duration-200 bg-surface"
+        return (
+          <motion.div key={card.filename} variants={cardAnim}>
+            {card.download ? (
+              <a href={card.download} download className={cls}>{inner}</a>
+            ) : (
+              <Link href={card.path} className={cls}>{inner}</Link>
+            )}
+          </motion.div>
+        )
+      })}
     </motion.div>
   )
 }
