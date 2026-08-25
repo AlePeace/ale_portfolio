@@ -156,7 +156,7 @@ export default function SimpleAbout() {
 
       <motion.section initial="hidden" whileInView="visible" viewport={inView} variants={reveal} className="px-6 sm:px-16 pb-20">
         <a
-          href="/cv/cv_sparano.pdf"
+          href="/cv/cv_sparano_semplice.pdf"
           download
           className="inline-block bg-ink text-paper font-bold text-[15px] rounded-lg px-6 py-3.5"
         >
