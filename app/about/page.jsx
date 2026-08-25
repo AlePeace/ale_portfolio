@@ -1,4 +1,8 @@
 import AboutCode from "@/components/AboutCode"
+import SimpleAbout from "@/components/SimpleAbout"
+import IDEShell from "@/components/IDEShell"
+import SimpleShell from "@/components/SimpleShell"
+import { getSiteMode } from "@/utils/getSiteMode"
 
 export const metadata = {
   title:       "Chi sono",
@@ -11,6 +15,20 @@ export const metadata = {
   alternates: { canonical: "https://alessandrosparano.com/about" },
 }
 
-export default function About() {
-  return <AboutCode />
+export default async function About() {
+  const mode = await getSiteMode()
+
+  if (mode === "dev") {
+    return (
+      <IDEShell>
+        <AboutCode />
+      </IDEShell>
+    )
+  }
+
+  return (
+    <SimpleShell>
+      <SimpleAbout />
+    </SimpleShell>
+  )
 }

@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  /* modalità dev — palette IDE, sempre scura, indipendente dal tema */
   --bg:        #0d0f16;
   --surface:   #0f1120;
   --titlebar:  #1a1d2e;
@@ -16,6 +17,37 @@
   --comment:   #3d4872;
   --prop:      #89ddff;
   --statusbar: #0b5e50;
+
+  /* modalità semplice — chiara di default */
+  --paper:        #e4e5e7;
+  --panel:        #d9dadd;
+  --ink:          #15171b;
+  --ink-soft:     rgba(21, 23, 27, .72);
+  --hairline:     #c7c9cd;
+  --mint:         #53cb87;
+  --accent-teal:  #53cbc4;
+  --accent-orange:#f66e1b;
+  --accent-violet:#9680fe;
+  --footer-bg:    #15171b;
+  --footer-ink:   #f2f2f0;
+  --brand-blue:   #3d6fe0;
+  --brand-pink:   #e0479a;
+}
+
+:root[data-theme="dark"] {
+  /* modalità semplice — variante scura */
+  --paper:        #0d0f16;
+  --panel:        #171a26;
+  --ink:          #eceef4;
+  --ink-soft:     rgba(236, 238, 244, .68);
+  --hairline:     #262a3a;
+  --accent-teal:  #6fd6cf;
+  --accent-orange:#f6874a;
+  --accent-violet:#a897ff;
+  --footer-bg:    #171a26;
+  --footer-ink:   #eceef4;
+  --brand-blue:   #4c8dff;
+  --brand-pink:   #f65ca6;
 }
 
 @theme inline {
@@ -35,7 +67,23 @@
   --color-prop:      var(--prop);
   --color-statusbar: var(--statusbar);
 
-  --font-mono: var(--font-jetbrains-mono);
+  --color-paper:         var(--paper);
+  --color-panel:         var(--panel);
+  --color-ink:           var(--ink);
+  --color-ink-soft:      var(--ink-soft);
+  --color-hairline:      var(--hairline);
+  --color-mint:          var(--mint);
+  --color-accent-teal:   var(--accent-teal);
+  --color-accent-orange: var(--accent-orange);
+  --color-accent-violet: var(--accent-violet);
+  --color-footer-bg:     var(--footer-bg);
+  --color-footer-ink:    var(--footer-ink);
+  --color-brand-blue:    var(--brand-blue);
+  --color-brand-pink:    var(--brand-pink);
+
+  --font-mono:    var(--font-jetbrains-mono);
+  --font-heading: var(--font-oswald);
+  --font-body:    var(--font-inter);
 }
 
 body {

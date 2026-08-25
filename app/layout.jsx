@@ -1,11 +1,24 @@
-import { JetBrains_Mono } from "next/font/google"
+import { JetBrains_Mono, Oswald, Inter } from "next/font/google"
+import { cookies } from "next/headers"
 import { GoogleTagManager, GoogleAnalytics } from "@next/third-parties/google"
 import "./globals.css"
-import IDEShell from "@/components/IDEShell"
 import JsonLd from "@/components/JsonLd"
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  display: "swap",
+})
+
+const oswald = Oswald({
+  variable: "--font-oswald",
+  subsets: ["latin"],
+  weight: ["500", "700"],
+  display: "swap",
+})
+
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 })
@@ -72,13 +85,39 @@ export const metadata = {
   },
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const cookieStore = await cookies()
+  const mode = cookieStore.get("site-mode")?.value === "dev" ? "dev" : "simple"
+  const hasThemeCookie = cookieStore.has("site-theme")
+  const theme = cookieStore.get("site-theme")?.value === "dark" ? "dark" : "light"
+
   return (
-    <html lang="it" className={jetbrainsMono.variable}>
+    <html
+      lang="it"
+      data-mode={mode}
+      data-theme={theme}
+      className={`${jetbrainsMono.variable} ${oswald.variable} ${inter.variable}`}
+    >
+      <head>
+        {!hasThemeCookie && (
+          <script
+            // evita il flash chiaro→scuro al primo arrivo, prima che venga salvato un cookie
+            dangerouslySetInnerHTML={{
+              __html: `if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}`,
+            }}
+          />
+        )}
+      </head>
       <GoogleTagManager gtmId="GTM-NHGSMQ3D" />
-      <body className="font-mono bg-bg text-text antialiased">
+      <body
+        className={
+          mode === "dev"
+            ? "font-mono bg-bg text-text antialiased"
+            : "font-body bg-paper text-ink antialiased"
+        }
+      >
         <JsonLd />
-        <IDEShell>{children}</IDEShell>
+        {children}
       </body>
       <GoogleAnalytics gaId="G-99TR9N1F5F" />
     </html>

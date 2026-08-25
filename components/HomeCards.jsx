@@ -70,6 +70,17 @@ const cards = [
       [{ t: "  // → ", c: T.c }, { t: "nuovo progetto", c: T.a }],
     ],
   },
+  {
+    filename: "startProject.js",
+    mailto:   `mailto:aledev@alessandrosparano.com?subject=${encodeURIComponent("Nuovo progetto 🚀")}`,
+    dot:      "text-string",
+    preview: [
+      [{ t: "export ", c: T.k }, { t: "function", c: T.k }, { t: " startProject", c: T.f }, { t: "() {", c: T.tx }],
+      [{ t: "  return", c: T.k }, { t: " sendEmail", c: T.f }, { t: "({", c: T.tx }],
+      [{ t: "    to", c: T.p }, { t: ": ", c: T.tx }, { t: "'aledev@...'", c: T.s }],
+      [{ t: "  })", c: T.tx }, { t: " ", c: T.tx }, { t: "// → scrivimi ✉", c: T.c }],
+    ],
+  },
 ]
 
 const container = {
@@ -121,6 +132,8 @@ export default function HomeCards() {
           <motion.div key={card.filename} variants={cardAnim}>
             {card.download ? (
               <a href={card.download} download className={cls}>{inner}</a>
+            ) : card.mailto ? (
+              <a href={card.mailto} className={cls}>{inner}</a>
             ) : (
               <Link href={card.path} className={cls}>{inner}</Link>
             )}

@@ -1,4 +1,8 @@
 import SkillsCode from "@/components/SkillsCode"
+import SimpleSkills from "@/components/SimpleSkills"
+import IDEShell from "@/components/IDEShell"
+import SimpleShell from "@/components/SimpleShell"
+import { getSiteMode } from "@/utils/getSiteMode"
 
 export const metadata = {
   title:       "Skills",
@@ -11,6 +15,20 @@ export const metadata = {
   alternates: { canonical: "https://alessandrosparano.com/skills" },
 }
 
-export default function Skills() {
-  return <SkillsCode />
+export default async function Skills() {
+  const mode = await getSiteMode()
+
+  if (mode === "dev") {
+    return (
+      <IDEShell>
+        <SkillsCode />
+      </IDEShell>
+    )
+  }
+
+  return (
+    <SimpleShell>
+      <SimpleSkills />
+    </SimpleShell>
+  )
 }

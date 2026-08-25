@@ -1,4 +1,8 @@
 import ContactCode from "@/components/ContactCode"
+import SimpleContact from "@/components/SimpleContact"
+import IDEShell from "@/components/IDEShell"
+import SimpleShell from "@/components/SimpleShell"
+import { getSiteMode } from "@/utils/getSiteMode"
 
 export const metadata = {
   title:       "Contatti",
@@ -11,6 +15,20 @@ export const metadata = {
   alternates: { canonical: "https://alessandrosparano.com/contact" },
 }
 
-export default function Contact() {
-  return <ContactCode />
+export default async function Contact() {
+  const mode = await getSiteMode()
+
+  if (mode === "dev") {
+    return (
+      <IDEShell>
+        <ContactCode />
+      </IDEShell>
+    )
+  }
+
+  return (
+    <SimpleShell>
+      <SimpleContact />
+    </SimpleShell>
+  )
 }

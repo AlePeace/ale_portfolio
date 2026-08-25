@@ -1,8 +1,13 @@
+import { cookies } from "next/headers"
 import { fetchSkills } from "@/utils/fetchSkills"
 import Hero from "@/components/Hero"
 import HomeCards from "@/components/HomeCards"
+import IDEShell from "@/components/IDEShell"
+import SimpleShell from "@/components/SimpleShell"
+import SimpleHome from "@/components/SimpleHome"
+import Gateway from "@/components/Gateway"
 
-export default async function Home() {
+async function DevHome() {
   const skills = await fetchSkills({
     stack:   ["Next.js", "React", "Sanity", "Vercel"],
     passion: ["UI craftmanship", "clean code"],
@@ -19,4 +24,27 @@ export default async function Home() {
       </div>
     </div>
   )
+}
+
+export default async function Home() {
+  const cookieStore = await cookies()
+  const mode = cookieStore.get("site-mode")?.value
+
+  if (mode === "dev") {
+    return (
+      <IDEShell>
+        <DevHome />
+      </IDEShell>
+    )
+  }
+
+  if (mode === "simple") {
+    return (
+      <SimpleShell>
+        <SimpleHome />
+      </SimpleShell>
+    )
+  }
+
+  return <Gateway />
 }

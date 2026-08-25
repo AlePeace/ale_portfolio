@@ -1,3 +1,10 @@
+"use client"
+
+function switchToSimple() {
+  document.cookie = "site-mode=simple; path=/; max-age=31536000"
+  window.location.reload()
+}
+
 export default function StatusBar() {
   return (
     <footer className="bg-statusbar px-3 shrink-0 text-[11px] text-white/75 tracking-wide
@@ -16,6 +23,10 @@ export default function StatusBar() {
         <span>JavaScript (React)</span>
         <span className="text-white/30">|</span>
         <span>JetBrains Mono</span>
+        <span className="text-white/30">|</span>
+        <button onClick={switchToSimple} className="hover:text-white transition-colors">
+          → modalità semplice
+        </button>
       </div>
     </footer>
   )
