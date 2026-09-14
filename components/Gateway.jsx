@@ -38,8 +38,8 @@ export default function Gateway() {
               <circle cx="13" cy="8" r="4.2" stroke="#0d0f16" strokeWidth="1.8" />
               <path d="M4 22C4 17.6 8 15 13 15C18 15 22 17.6 22 22" stroke="#0d0f16" strokeWidth="1.8" strokeLinecap="round" />
             </svg>
-            <span className="font-heading font-bold text-[19px] text-[#0d0f16]">Modalità semplice</span>
-            <span className="text-[12.5px] font-medium text-[#0d0f16]/70">dritti al sodo, senza fronzoli</span>
+            <span className="font-heading font-bold text-[19px] text-[#0d0f16]">Modalità Visuale</span>
+            <span className="text-[12.5px] font-medium text-[#0d0f16]/70">grafica, immediata, per tutti</span>
           </a>
 
           <a

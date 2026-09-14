@@ -31,9 +31,9 @@ Clients are often non-technical, so the portfolio must be readable by anyone. Th
 | Sanity CMS | Content management | Planned for future, NOT in v1 |
 | GSAP | Animations | Entrance animations, transitions, text effects — still not implemented |
 | Lenis | Smooth scroll | Evaluate if it improves experience on this layout |
-| Framer Motion | Page transitions + reveal | `AnimatePresence` for route changes; `whileInView` scroll-reveal in modalità semplice |
+| Framer Motion | Page transitions + reveal | `AnimatePresence` for route changes; `whileInView` scroll-reveal in modalità visuale |
 | JetBrains Mono | Font | Modalità dev only — UI + mocked code content |
-| Oswald + Inter | Fonts | Modalità semplice only — Oswald for headings, Inter for body, via `next/font/google` |
+| Oswald + Inter | Fonts | Modalità Visuale only — Oswald for headings, Inter for body, via `next/font/google` |
 | Tailwind CSS v4 | Styling | Uses `@import "tailwindcss"` + `@theme inline` syntax |
 | @next/third-parties | Analytics | GoogleTagManager + GoogleAnalytics components |
 
@@ -46,23 +46,23 @@ Clients are often non-technical, so the portfolio must be readable by anyone. Th
 The site ships **two parallel experiences**, chosen once by the visitor and remembered via a cookie — instead of forcing one compromise design for both developers and non-technical clients/HR.
 
 - **Modalità dev** — the original IDE-styled site. Always dark. Visual language of a code editor (Zed/VS Code); developers recognize and appreciate it, non-developers just see "a site," which is why it's no longer the *only* option.
-- **Modalità semplice** — a graphic, editorial-style site for non-technical visitors (clients, recruiters, HR). Light/dark themeable, built around Oswald/Inter + a mint/teal/orange/violet accent system inspired by Alessandro's old portfolio.
+- **Modalità Visuale** — a graphic, editorial-style site for non-technical visitors (clients, recruiters, HR). Light/dark themeable, built around Oswald/Inter + a mint/teal/orange/violet accent system inspired by Alessandro's old portfolio.
 
 ### Gateway (`/` — first visit only)
 
-`components/Gateway.jsx`. Rendered **only** when no `site-mode` cookie exists at `/`. It is a one-time chooser, never a gate — deep links to any inner page never show it. Two pills: **"Modalità semplice"** (blue `--brand-blue`) / **"Modalità dev"** (pink `--brand-pink`). These two colors are a fixed brand pair reserved for the gateway and the logo's highlighter underline — independent of the two site themes. Clicking a pill sets the `site-mode` cookie (1 year, `path=/`) and does a full reload.
+`components/Gateway.jsx`. Rendered **only** when no `site-mode` cookie exists at `/`. It is a one-time chooser, never a gate — deep links to any inner page never show it. Two pills: **"Modalità Visuale"** (blue `--brand-blue`) / **"Modalità dev"** (pink `--brand-pink`). These two colors are a fixed brand pair reserved for the gateway and the logo's highlighter underline — independent of the two site themes. Clicking a pill sets the `site-mode` cookie (1 year, `path=/`) and does a full reload.
 
 ### Mode & theme resolution
 
 - `site-mode` cookie: `"dev"` | `"simple"`.
   - Missing **at `/`** → Gateway is shown.
   - Missing **anywhere else** → defaults to `"simple"` (the more accessible default for an unknown direct visitor). Read via `utils/getSiteMode.js`.
-- `site-theme` cookie: `"light"` | `"dark"` — only relevant to modalità semplice (modalità dev is always dark, untouched by this).
+- `site-theme` cookie: `"light"` | `"dark"` — only relevant to modalità visuale (modalità dev is always dark, untouched by this).
   - Read server-side in `app/layout.jsx` via `next/headers` `cookies()`, set as `data-mode` / `data-theme` on `<html>` — no client flash on repeat visits.
   - A blocking inline `<script>` in `<head>` upgrades to dark **only when no theme cookie exists yet**, based on `prefers-color-scheme` — first-visit-only flash guard.
 - Switching mode is **always a visible control on both sides**, per explicit request — not just discoverable on Home:
   - `SimpleNav.jsx` → "→ modalità dev" pill, **filled mint**, visible on desktop (full text) and mobile ("Dev" badge).
-  - `StatusBar.jsx` → "→ modalità semplice" text link, right cluster.
+  - `StatusBar.jsx` → "→ modalità visuale" text link, right cluster.
   - Both just set the cookie + `window.location.reload()` — **stay on the same path**, no redirect to Home.
 - `app/layout.jsx` **no longer wraps children in `IDEShell`**. Each top-level page (`page.jsx`, `about/page.jsx`, `projects/page.jsx`, `projects/new/page.jsx`, `skills/page.jsx`, `contact/page.jsx`, `not-found.jsx`) reads its own mode and picks its own shell/content pair itself (`IDEShell` + `*Code.jsx` vs `SimpleShell` + `Simple*.jsx`). This makes the root layout dynamic (opts out of static rendering) — expected, fine at this traffic scale.
 
@@ -95,7 +95,7 @@ The site ships **two parallel experiences**, chosen once by the visitor and reme
 --statusbar: #0b5e50   dark green — status bar background
 ```
 
-### Modalità semplice — Color palette
+### Modalità Visuale — Color palette
 
 Defined in `app/globals.css`, gated by `:root[data-theme="dark"]` — a **separate token namespace** from modalità dev above, so nothing collides and both sets exist in the DOM regardless of which mode is active.
 
@@ -116,7 +116,7 @@ Defined in `app/globals.css`, gated by `:root[data-theme="dark"]` — a **separa
 ### Fonts
 
 - **JetBrains Mono** — modalità dev only, imported via `next/font/google` with ligatures. Variable: `--font-jetbrains-mono`, Tailwind class `font-mono`.
-- **Oswald** (weights 500/700) + **Inter** — modalità semplice only, via `next/font/google`. Tailwind classes `font-heading` (Oswald) / `font-body` (Inter, also the default body font when `site-mode=simple`).
+- **Oswald** (weights 500/700) + **Inter** — modalità visuale only, via `next/font/google`. Tailwind classes `font-heading` (Oswald) / `font-body` (Inter, also the default body font when `site-mode=simple`).
 
 ---
 
@@ -144,17 +144,17 @@ app/
 
 components/
 ├── IDEShell.jsx            ← modalità dev wrapper (sidebar toggle state)
-├── Sidebar.jsx / TabBar.jsx / StatusBar.jsx / TitleBar.jsx   ← modalità dev shell pieces (StatusBar now also carries the "→ modalità semplice" switch)
+├── Sidebar.jsx / TabBar.jsx / StatusBar.jsx / TitleBar.jsx   ← modalità dev shell pieces (StatusBar now also carries the "→ modalità visuale" switch)
 ├── Hero.jsx / HomeCards.jsx / AboutCode.jsx / ProjectsCode.jsx
 ├── NewProjectCode.jsx / SkillsCode.jsx / ContactCode.jsx / NotFoundCode.jsx   ← modalità dev content, unchanged
 ├── Gateway.jsx              ← first-visit pill chooser, only rendered by app/page.jsx when no site-mode cookie
-├── SimpleShell.jsx          ← modalità semplice wrapper: SimpleNav + PageTransition + SimpleFooter
+├── SimpleShell.jsx          ← modalità visuale wrapper: SimpleNav + PageTransition + SimpleFooter
 ├── SimpleNav.jsx            ← logo w/ blue→pink highlighter, desktop nav links, mobile hamburger + slide-down menu, ThemeToggle, filled-mint "→ modalità dev"
 ├── SimpleFooter.jsx         ← dark CTA block, scroll-reveal on whileInView
 ├── ThemeToggle.jsx          ← light/dark switch (sun/moon), sets site-theme cookie
 ├── SimpleHome.jsx / SimpleAbout.jsx / SimpleProjects.jsx
 ├── SimpleSkills.jsx / SimpleContact.jsx / SimpleNewProject.jsx / SimpleNotFound.jsx
-│                            ← modalità semplice content. Real prose (no code-as-content), mint/teal/orange/violet accents,
+│                            ← modalità visuale content. Real prose (no code-as-content), mint/teal/orange/violet accents,
 │                              scroll-reveal via framer-motion `whileInView` (once per section, `viewport={{once:true, amount:0.2}}`)
 ├── PageTransition.jsx      ← shared AnimatePresence wrapper, used by both shells
 └── JsonLd.jsx               ← JSON-LD Person schema (in layout)
@@ -166,7 +166,7 @@ utils/
 public/
 ├── cv/
 │   ├── cv_sparano.pdf              ← modalità dev download (unchanged — do NOT touch without being asked)
-│   ├── cv_sparano_semplice.pdf     ← modalità semplice download. Modern 1-page CV (sidebar + main column), mint/Oswald/Inter,
+│   ├── cv_sparano_semplice.pdf     ← modalità visuale download. Modern 1-page CV (sidebar + main column), mint/Oswald/Inter,
 │   │                                  same content as the site but restrained color use (print-appropriate). Built from a plain
 │   │                                  static HTML twin of the design (not committed — was in session scratchpad) rendered via
 │   │                                  `chromium --headless --print-to-pdf`. Regenerate the same way if content changes; keep
@@ -183,7 +183,7 @@ public/
 
 ## Pages — Current State
 
-Every page below exists in **both modes**; only modalità dev's structure is detailed here since it hasn't changed. Modalità semplice equivalents (`Simple*.jsx`) carry the same real data rewritten as plain prose/cards — see the file structure above for which component pairs with which.
+Every page below exists in **both modes**; only modalità dev's structure is detailed here since it hasn't changed. Modalità Visuale equivalents (`Simple*.jsx`) carry the same real data rewritten as plain prose/cards — see the file structure above for which component pairs with which.
 
 ### `/` — Home ✅
 
@@ -267,7 +267,7 @@ URLs are identical across both modes (no `/dev/...` or `/simple/...` prefixes) �
 
 ```
 left:   ⎇ main  |  ✓ deployed on Vercel  |  0 errors · 0 warnings
-right:  Zorin OS  |  JavaScript (React)  |  JetBrains Mono  |  → modalità semplice
+right:  Zorin OS  |  JavaScript (React)  |  JetBrains Mono  |  → modalità visuale
 ```
 
 "Zorin OS" instead of the usual "UTF-8" — a small easter egg for those who know.
@@ -296,7 +296,7 @@ Next.js rewrites needed in `next.config.js` to proxy `/soundpopradio`, `/quantum
 ### Framer Motion — in use
 - Page transitions: `AnimatePresence mode="wait"` in `PageTransition.jsx`, shared by both shells
 - Modalità dev: staggered `motion.div` with `opacity + x`, triggered on mount (unchanged)
-- Modalità semplice: scroll-reveal via `whileInView` (`viewport={{ once: true, amount: 0.2 }}`), fade + `y:28→0`, ~0.5s ease-out — each section/row animates independently as it enters view, not on page mount
+- Modalità Visuale: scroll-reveal via `whileInView` (`viewport={{ once: true, amount: 0.2 }}`), fade + `y:28→0`, ~0.5s ease-out — each section/row animates independently as it enters view, not on page mount
 - Sidebar mobile (dev): slide in/out with backdrop
 - SimpleNav mobile menu: height/opacity `AnimatePresence` slide-down
 
@@ -336,11 +336,11 @@ Likely low impact given the full-page layout. Evaluate when /projects gets longe
 - [x] Favicon — `app/icon.svg` ✅
 - [x] Google Tag Manager + GA4 via `@next/third-parties` ✅
 - [x] Gateway + dual-mode (semplice/dev) architecture, cookie-based, same URLs ✅
-- [x] Modalità semplice built out for every page (Home, About, Projects, Projects/new, Skills, Contact, 404) ✅
-- [x] Light/dark theme toggle for modalità semplice ✅
+- [x] Modalità Visuale built out for every page (Home, About, Projects, Projects/new, Skills, Contact, 404) ✅
+- [x] Light/dark theme toggle for modalità visuale ✅
 - [x] Mode-switch control always visible in both modes (nav pill + status bar link) ✅
-- [x] Mobile hamburger menu for modalità semplice ✅
-- [x] Scroll-reveal animations (`whileInView`) across modalità semplice ✅
+- [x] Mobile hamburger menu for modalità visuale ✅
+- [x] Scroll-reveal animations (`whileInView`) across modalità visuale ✅
 - [x] Real profile photo wired into SimpleHome/SimpleAbout + CV ✅
 - [x] All 5 project preview images present ✅
 - [ ] Add `next.config.js` rewrites for legacy subpaths once DNS propagates

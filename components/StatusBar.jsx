@@ -25,7 +25,7 @@ export default function StatusBar() {
         <span>JetBrains Mono</span>
         <span className="text-white/30">|</span>
         <button onClick={switchToSimple} className="hover:text-white transition-colors">
-          → modalità semplice
+          → modalità visuale
         </button>
       </div>
     </footer>
