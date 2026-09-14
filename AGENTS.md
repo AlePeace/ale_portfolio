@@ -11,7 +11,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 ## Author
 
 **Alessandro Sparano** — Creative Developer @ QCore Agency, Napoli.
-Clients are often non-technical, so the portfolio must be readable by anyone while keeping a developer aesthetic.
+Clients are often non-technical, so the portfolio must be readable by anyone. The site now ships two full experiences so it works for both audiences at once (see below) instead of forcing a compromise.
 
 ### Contact / Social
 - Email: aledev@alessandrosparano.com
@@ -29,10 +29,11 @@ Clients are often non-technical, so the portfolio must be readable by anyone whi
 | React | UI | JSX only, no TypeScript |
 | Vercel | Deploy | Production at alessandrosparano.com |
 | Sanity CMS | Content management | Planned for future, NOT in v1 |
-| GSAP | Animations | Entrance animations, transitions, text effects |
+| GSAP | Animations | Entrance animations, transitions, text effects — still not implemented |
 | Lenis | Smooth scroll | Evaluate if it improves experience on this layout |
-| Framer Motion | Page transitions | `AnimatePresence` for route changes — already installed & in use |
-| JetBrains Mono | Font | Both for UI and mocked code content |
+| Framer Motion | Page transitions + reveal | `AnimatePresence` for route changes; `whileInView` scroll-reveal in modalità semplice |
+| JetBrains Mono | Font | Modalità dev only — UI + mocked code content |
+| Oswald + Inter | Fonts | Modalità semplice only — Oswald for headings, Inter for body, via `next/font/google` |
 | Tailwind CSS v4 | Styling | Uses `@import "tailwindcss"` + `@theme inline` syntax |
 | @next/third-parties | Analytics | GoogleTagManager + GoogleAnalytics components |
 
@@ -42,20 +43,39 @@ Clients are often non-technical, so the portfolio must be readable by anyone whi
 
 ## Concept & Aesthetic
 
-The site is **not** a clone of an IDE — it uses the **visual language of a code editor** (Zed / VS Code) as its design system.
+The site ships **two parallel experiences**, chosen once by the visitor and remembered via a cookie — instead of forcing one compromise design for both developers and non-technical clients/HR.
 
-Developers recognize and appreciate it. Non-developers simply see a clean, professional site.
+- **Modalità dev** — the original IDE-styled site. Always dark. Visual language of a code editor (Zed/VS Code); developers recognize and appreciate it, non-developers just see "a site," which is why it's no longer the *only* option.
+- **Modalità semplice** — a graphic, editorial-style site for non-technical visitors (clients, recruiters, HR). Light/dark themeable, built around Oswald/Inter + a mint/teal/orange/violet accent system inspired by Alessandro's old portfolio.
 
-### IDE elements implemented
+### Gateway (`/` — first visit only)
+
+`components/Gateway.jsx`. Rendered **only** when no `site-mode` cookie exists at `/`. It is a one-time chooser, never a gate — deep links to any inner page never show it. Two pills: **"Modalità semplice"** (blue `--brand-blue`) / **"Modalità dev"** (pink `--brand-pink`). These two colors are a fixed brand pair reserved for the gateway and the logo's highlighter underline — independent of the two site themes. Clicking a pill sets the `site-mode` cookie (1 year, `path=/`) and does a full reload.
+
+### Mode & theme resolution
+
+- `site-mode` cookie: `"dev"` | `"simple"`.
+  - Missing **at `/`** → Gateway is shown.
+  - Missing **anywhere else** → defaults to `"simple"` (the more accessible default for an unknown direct visitor). Read via `utils/getSiteMode.js`.
+- `site-theme` cookie: `"light"` | `"dark"` — only relevant to modalità semplice (modalità dev is always dark, untouched by this).
+  - Read server-side in `app/layout.jsx` via `next/headers` `cookies()`, set as `data-mode` / `data-theme` on `<html>` — no client flash on repeat visits.
+  - A blocking inline `<script>` in `<head>` upgrades to dark **only when no theme cookie exists yet**, based on `prefers-color-scheme` — first-visit-only flash guard.
+- Switching mode is **always a visible control on both sides**, per explicit request — not just discoverable on Home:
+  - `SimpleNav.jsx` → "→ modalità dev" pill, **filled mint**, visible on desktop (full text) and mobile ("Dev" badge).
+  - `StatusBar.jsx` → "→ modalità semplice" text link, right cluster.
+  - Both just set the cookie + `window.location.reload()` — **stay on the same path**, no redirect to Home.
+- `app/layout.jsx` **no longer wraps children in `IDEShell`**. Each top-level page (`page.jsx`, `about/page.jsx`, `projects/page.jsx`, `projects/new/page.jsx`, `skills/page.jsx`, `contact/page.jsx`, `not-found.jsx`) reads its own mode and picks its own shell/content pair itself (`IDEShell` + `*Code.jsx` vs `SimpleShell` + `Simple*.jsx`). This makes the root layout dynamic (opts out of static rendering) — expected, fine at this traffic scale.
+
+### Modalità dev — IDE elements
 
 - **Titlebar** — KDE/Linux-style window controls (flat, geometric — NOT macOS traffic lights)
 - **Sidebar** — navigable file tree (desktop always visible, mobile overlay)
 - **Tab bar** — open pages as file tabs, including dimmed `new-project.jsx` tab and green `curriculum.pdf` download tab
 - **Line numbers** — in all content areas
-- **Status bar** — bottom bar with git branch, deploy status, OS, font name
+- **Status bar** — bottom bar with git branch, deploy status, OS, font name, **+ mode-switch link**
 - **Page transitions** — Framer Motion `AnimatePresence`, 180ms ease
 
-### Color palette (Material Theme / Zed dark inspired)
+### Modalità dev — Color palette (Material Theme / Zed dark inspired)
 
 ```
 --bg:        #0d0f16   main background
@@ -75,9 +95,28 @@ Developers recognize and appreciate it. Non-developers simply see a clean, profe
 --statusbar: #0b5e50   dark green — status bar background
 ```
 
-### Font
+### Modalità semplice — Color palette
 
-**JetBrains Mono** — imported via `next/font/google` with ligatures. Variable: `--font-jetbrains-mono`.
+Defined in `app/globals.css`, gated by `:root[data-theme="dark"]` — a **separate token namespace** from modalità dev above, so nothing collides and both sets exist in the DOM regardless of which mode is active.
+
+```
+--paper          page background   light #e4e5e7 / dark #0d0f16
+--panel          card/panel tint   light #d9dadd / dark #171a26
+--ink            primary text      light #15171b / dark #eceef4
+--ink-soft       secondary text (translucent)
+--hairline       dividers/borders  light #c7c9cd / dark #262a3a
+--mint           #53cb87 — constant across both themes, the main accent
+--accent-teal    light #53cbc4 / dark #6fd6cf
+--accent-orange  light #f66e1b / dark #f6874a
+--accent-violet  light #9680fe / dark #a897ff
+--footer-bg / --footer-ink   footer block, always dark-on-light regardless of theme
+--brand-blue / --brand-pink  GATEWAY + LOGO HIGHLIGHTER ONLY — light #3d6fe0/#e0479a, dark #4c8dff/#f65ca6
+```
+
+### Fonts
+
+- **JetBrains Mono** — modalità dev only, imported via `next/font/google` with ligatures. Variable: `--font-jetbrains-mono`, Tailwind class `font-mono`.
+- **Oswald** (weights 500/700) + **Inter** — modalità semplice only, via `next/font/google`. Tailwind classes `font-heading` (Oswald) / `font-body` (Inter, also the default body font when `site-mode=simple`).
 
 ---
 
@@ -85,69 +124,76 @@ Developers recognize and appreciate it. Non-developers simply see a clean, profe
 
 ```
 app/
-├── layout.jsx              ← global IDE shell + SEO metadata + GTM + GA4
+├── layout.jsx              ← root: fonts, reads site-mode/site-theme cookies → data-mode/data-theme on <html>, GTM/GA/JsonLd. NO shell here.
 ├── icon.svg                ← favicon (must be icon.*, NOT favicon.svg)
-├── page.jsx                ← home (Hero + HomeCards side by side on desktop)
+├── page.jsx                ← Home: Gateway (no cookie) | IDEShell+Hero/HomeCards (dev) | SimpleShell+SimpleHome (simple)
 ├── opengraph-image.jsx     ← dynamic OG image (ImageResponse, edge runtime)
 ├── sitemap.js              ← sitemap.xml
 ├── robots.js               ← robots.txt
-├── not-found.jsx           ← 404 page
+├── not-found.jsx           ← same dual-mode pattern as pages below
 ├── about/
-│   └── page.jsx
+│   └── page.jsx             ← dual-mode: IDEShell+AboutCode | SimpleShell+SimpleAbout
 ├── projects/
-│   ├── page.jsx
+│   ├── page.jsx              ← dual-mode: IDEShell+ProjectsCode | SimpleShell+SimpleProjects
 │   └── new/
-│       └── page.jsx        ← "start a new project" CTA page
+│       └── page.jsx          ← dual-mode: IDEShell+NewProjectCode | SimpleShell+SimpleNewProject
 ├── skills/
-│   └── page.jsx
+│   └── page.jsx              ← dual-mode: IDEShell+SkillsCode | SimpleShell+SimpleSkills
 └── contact/
-    └── page.jsx
+    └── page.jsx              ← dual-mode: IDEShell+ContactCode | SimpleShell+SimpleContact
 
 components/
-├── IDEShell.jsx            ← main wrapper (sidebar toggle state)
-├── Sidebar.jsx             ← file tree, desktop + mobile overlay
-├── TabBar.jsx              ← tabs; includes dimmed new-project.jsx tab
-├── StatusBar.jsx           ← bottom bar
-├── TitleBar.jsx            ← KDE window controls + mobile hamburger
-├── PageTransition.jsx      ← framer-motion AnimatePresence wrapper
-├── Hero.jsx                ← home hero — syntax-highlighted code as content
-├── HomeCards.jsx           ← home file cards (right column on desktop, below on mobile)
-├── AboutCode.jsx           ← about page content
-├── ProjectsCode.jsx        ← projects list with thumbnails
-├── NewProjectCode.jsx      ← new project file tree + CTA
-├── SkillsCode.jsx          ← skills page content
-├── ContactCode.jsx         ← contact page content
-├── NotFoundCode.jsx        ← 404 content
-└── JsonLd.jsx              ← JSON-LD Person schema (in layout)
+├── IDEShell.jsx            ← modalità dev wrapper (sidebar toggle state)
+├── Sidebar.jsx / TabBar.jsx / StatusBar.jsx / TitleBar.jsx   ← modalità dev shell pieces (StatusBar now also carries the "→ modalità semplice" switch)
+├── Hero.jsx / HomeCards.jsx / AboutCode.jsx / ProjectsCode.jsx
+├── NewProjectCode.jsx / SkillsCode.jsx / ContactCode.jsx / NotFoundCode.jsx   ← modalità dev content, unchanged
+├── Gateway.jsx              ← first-visit pill chooser, only rendered by app/page.jsx when no site-mode cookie
+├── SimpleShell.jsx          ← modalità semplice wrapper: SimpleNav + PageTransition + SimpleFooter
+├── SimpleNav.jsx            ← logo w/ blue→pink highlighter, desktop nav links, mobile hamburger + slide-down menu, ThemeToggle, filled-mint "→ modalità dev"
+├── SimpleFooter.jsx         ← dark CTA block, scroll-reveal on whileInView
+├── ThemeToggle.jsx          ← light/dark switch (sun/moon), sets site-theme cookie
+├── SimpleHome.jsx / SimpleAbout.jsx / SimpleProjects.jsx
+├── SimpleSkills.jsx / SimpleContact.jsx / SimpleNewProject.jsx / SimpleNotFound.jsx
+│                            ← modalità semplice content. Real prose (no code-as-content), mint/teal/orange/violet accents,
+│                              scroll-reveal via framer-motion `whileInView` (once per section, `viewport={{once:true, amount:0.2}}`)
+├── PageTransition.jsx      ← shared AnimatePresence wrapper, used by both shells
+└── JsonLd.jsx               ← JSON-LD Person schema (in layout)
 
 utils/
-└── fetchSkills.js          ← returns skills/stack (local mock in v1)
+├── fetchSkills.js           ← returns skills/stack (local mock in v1)
+└── getSiteMode.js           ← reads `site-mode` cookie server-side (async, next/headers), defaults to "simple"
 
 public/
 ├── cv/
-│   └── cv_sparano.pdf      ← downloadable CV (linked from /about)
+│   ├── cv_sparano.pdf              ← modalità dev download (unchanged — do NOT touch without being asked)
+│   ├── cv_sparano_semplice.pdf     ← modalità semplice download. Modern 1-page CV (sidebar + main column), mint/Oswald/Inter,
+│   │                                  same content as the site but restrained color use (print-appropriate). Built from a plain
+│   │                                  static HTML twin of the design (not committed — was in session scratchpad) rendered via
+│   │                                  `chromium --headless --print-to-pdf`. Regenerate the same way if content changes; keep
+│   │                                  main-column text ≥16px/12pt, tighten `.mainBlock`/`.side` margins first if it overflows to page 2.
+│   └── profilo-pic.png             ← real photo (B&W, pre-cropped circular, transparent corners). Used in SimpleHome + SimpleAbout
+│                                       avatar circles with `object-contain` (no extra CSS crop needed) and in the CV sidebar.
 └── previews/
-    ├── mosic.png           ← project preview (grayscale in UI)
-    ├── soundpopradio.png   ← project preview
-    ├── quantumcrypto.png   ← TODO: add
-    ├── portfolio-v1.png    ← TODO: add
-    └── osteopata.png       ← TODO: add
+    ├── mosic.png / soundpopradio.png / quantumcrypto.png / portfolio-v1.png / osteopata.png
+    │      ← all 5 present (grayscale treatment in modalità dev's ProjectsCode, full color in SimpleProjects)
+    └── fotoale.jpeg             ← superseded by profilo-pic.png, no longer referenced anywhere — safe to delete
 ```
 
 ---
 
 ## Pages — Current State
 
+Every page below exists in **both modes**; only modalità dev's structure is detailed here since it hasn't changed. Modalità semplice equivalents (`Simple*.jsx`) carry the same real data rewritten as plain prose/cards — see the file structure above for which component pairs with which.
+
 ### `/` — Home ✅
 
-Hero showing real JSDoc + JSX code with syntax highlighting.
-Below the code, a 2×2 grid of `HomeCards` on mobile; on desktop the cards appear as a right column (w-72) next to the code, separated by a border.
-
-Cards: about.jsx, projects.jsx, fetchSkills.js, **curriculum.pdf** (download), contact.jsx.
+**Gateway** on first visit (no cookie). Once a mode is chosen:
+- Dev: Hero showing real JSDoc + JSX code with syntax highlighting. Below, `HomeCards` (2×2 grid mobile / right column desktop): about.jsx, projects.jsx, fetchSkills.js, **curriculum.pdf** (download → `cv_sparano.pdf`), contact.jsx, **startProject.js** (mailto, green dot).
+- Simple: hero + 3 service cards + chi-sono teaser (real photo) + skill chips + numbered project list (5 real projects) + footer CTA.
 
 ### `/about` — Chi sono ✅
 
-Content as a JS module with syntax highlighting. Sections:
+Dev — content as a JS module with syntax highlighting:
 - JSDoc header (@name, @role, @location, @agency)
 - `const profile` — email, web, github
 - `const story` — template literal with personal narrative (design background → code)
@@ -156,6 +202,8 @@ Content as a JS module with syntax highlighting. Sections:
 - `const certifications` — completed + wip (React course, Next.js/WP Headless, Three.js Journey)
 - `const aiTools` — expert/ok split, note "AI-assisted workflow: daily driver"
 - CV download link → `/cv/cv_sparano.pdf`
+
+Simple — same data as plain prose: photo + name/role, bio paragraphs, experience timeline w/ tags, education list, certifications (completed/in corso), AI tools chips, CV download → `/cv/cv_sparano_semplice.pdf`.
 
 ### `/projects` — Progetti ✅
 
@@ -169,31 +217,27 @@ Content as a JS module with syntax highlighting. Sections:
 | 04 | Portfolio v1 | personal | legacy | legacy.alessandrosparano.com/portfolio |
 | 05 | Studio Osteopata | collaboration | live | elisasaviano.it |
 
-Each project has: preview thumbnail (grayscale, label overlay with black bg + gold text), name, type, desc, stack, url, status.
-Studio Osteopata has a `collab` field linking to Francesco Li Petri (francescolipetri.it).
+Each project has: preview thumbnail, name, type, desc, stack, url, status. Studio Osteopata has a `collab` field linking to Francesco Li Petri (francescolipetri.it). Dev mode shows thumbnails grayscale with a label overlay; Simple mode shows them full color with description + stack tags, and each row reveals on scroll individually.
 
-At the bottom: `// ── new project ──` link → `/projects/new`.
+At the bottom: `// ── new project ──` (dev) / "Hai un progetto in mente? →" (simple), both → `/projects/new`.
 
 ### `/projects/new` ✅
 
-File tree visualization of two project templates (Next.js structure + WordPress structure) rendered as syntax-highlighted code. Below: CTA box with email button + link to /contact.
+Dev — file tree visualization of two project templates (Next.js structure + WordPress structure) as syntax-highlighted code, CTA box with email button + link to /contact. Tab bar shows `new-project.jsx` as a dimmed/special tab.
 
-Tab bar shows `new-project.jsx` as a dimmed/special tab.
+Simple — the same two starters (Next.js / WordPress) as plain cards explaining what each includes, plus a "scrivimi" CTA.
 
 ### `/skills` — fetchSkills.js ✅
 
-Full `fetchSkills()` function body showing all skill categories as return object properties:
-languages, frameworks, cms, styling, animations, tools, deploy, soft.
+Dev — full `fetchSkills()` function body showing all skill categories as return object properties: languages, frameworks, cms, styling, animations, tools, deploy, soft.
+
+Simple — same categories as labeled chip groups.
 
 ### `/contact` — Contatti ✅
 
-`const contact = { ... }` with all contacts as clickable strings:
-- email → mailto
-- phone → tel
-- github → external link
-- web → external link
+Dev — `const contact = { ... }` with all contacts as clickable strings (email/phone/github/web) + CTA button `→ inizia un nuovo progetto` linking to `/projects/new`.
 
-CTA button `→ inizia un nuovo progetto` links to `/projects/new`.
+Simple — same contacts as a clickable list + same CTA.
 
 ---
 
@@ -215,13 +259,15 @@ CTA button `→ inizia un nuovo progetto` links to `/projects/new`.
 
 metadataBase: `https://alessandrosparano.com`
 
+URLs are identical across both modes (no `/dev/...` or `/simple/...` prefixes) — deliberate, to protect the URLs already submitted to Search Console.
+
 ---
 
-## Status Bar Content
+## Status Bar Content (modalità dev)
 
 ```
 left:   ⎇ main  |  ✓ deployed on Vercel  |  0 errors · 0 warnings
-right:  Zorin OS  |  JavaScript (React)  |  JetBrains Mono
+right:  Zorin OS  |  JavaScript (React)  |  JetBrains Mono  |  → modalità semplice
 ```
 
 "Zorin OS" instead of the usual "UTF-8" — a small easter egg for those who know.
@@ -248,9 +294,11 @@ Next.js rewrites needed in `next.config.js` to proxy `/soundpopradio`, `/quantum
 ## Animations & Transitions
 
 ### Framer Motion — in use
-- Page transitions: `AnimatePresence mode="wait"` in `PageTransition.jsx`
-- Content entrance: staggered `motion.div` with `opacity + x` in all page components
-- Sidebar mobile: slide in/out with backdrop
+- Page transitions: `AnimatePresence mode="wait"` in `PageTransition.jsx`, shared by both shells
+- Modalità dev: staggered `motion.div` with `opacity + x`, triggered on mount (unchanged)
+- Modalità semplice: scroll-reveal via `whileInView` (`viewport={{ once: true, amount: 0.2 }}`), fade + `y:28→0`, ~0.5s ease-out — each section/row animates independently as it enters view, not on page mount
+- Sidebar mobile (dev): slide in/out with backdrop
+- SimpleNav mobile menu: height/opacity `AnimatePresence` slide-down
 
 ### GSAP — planned
 - Hero typing animation on first load (not yet implemented)
@@ -267,29 +315,44 @@ Likely low impact given the full-page layout. Evaluate when /projects gets longe
 - **No TypeScript** — only `.js` and `.jsx`
 - **Tailwind v4** — uses `@import "tailwindcss"` and `@theme inline` in globals.css. Do NOT use v3 config patterns.
 - **GSAP** — use `useGSAP()` hook for automatic React cleanup
-- **Framer Motion** — already installed, used for page transitions and entrance animations
-- **Mobile**: sidebar collapsible overlay, tab bar horizontally scrollable, cards stack below hero
+- **Framer Motion** — used for page transitions, mount-stagger (dev) and scroll-reveal (simple)
+- **Mobile**: dev sidebar collapsible overlay + tab bar horizontally scrollable; simple mode has its own hamburger menu (`SimpleNav.jsx`), independent of the dev sidebar
 - KDE window controls: inline SVG (X, minimize line, maximize square)
 - Status bar: `position: sticky; bottom: 0`
 - All page text: `break-words` on mobile (NEVER `break-all`) — applies to Hero, AboutCode, SkillsCode, ProjectsCode, NotFoundCode
-- Token-based line rendering pattern used in all page components (Hero, AboutCode, SkillsCode, etc.)
+- Token-based line rendering pattern used in all dev-mode page components (Hero, AboutCode, SkillsCode, etc.)
 - **Favicon**: must be `app/icon.svg` (or `icon.png`) — `favicon.svg` is NOT picked up by Next.js App Router
 - **OG image**: do NOT manually specify `openGraph.images` or `twitter.images` in metadata when `app/opengraph-image.jsx` exists — Next.js handles the URL automatically with version hash
 - **Tab bar download tabs**: use `<a href="..." download>` instead of `<Link>` — download tabs styled with `text-string` (green) to distinguish from nav tabs
 - **Analytics**: GTM loaded via `<GoogleTagManager>` before `<body>`, GA4 via `<GoogleAnalytics>` after `</body>` — both from `@next/third-parties/google`
+- **Mode/theme cookies**: `site-mode` and `site-theme`, both `path=/`, `max-age=31536000` (1 year), set client-side (`document.cookie`) then `window.location.reload()` — never use `next/navigation` router methods for a mode/theme switch, a full reload is what re-evaluates the server-read cookie in `layout.jsx`/each `page.jsx`
+- **Root layout is dynamic** (calls `cookies()`) — no static rendering for any page anymore; acceptable at this traffic scale, worth knowing if build output looks different than expected
 
 ---
 
 ## TODO / Next Steps
 
-- [x] Add favicon — `app/icon.svg` ✅
+### Site
+- [x] Favicon — `app/icon.svg` ✅
 - [x] Google Tag Manager + GA4 via `@next/third-parties` ✅
+- [x] Gateway + dual-mode (semplice/dev) architecture, cookie-based, same URLs ✅
+- [x] Modalità semplice built out for every page (Home, About, Projects, Projects/new, Skills, Contact, 404) ✅
+- [x] Light/dark theme toggle for modalità semplice ✅
+- [x] Mode-switch control always visible in both modes (nav pill + status bar link) ✅
+- [x] Mobile hamburger menu for modalità semplice ✅
+- [x] Scroll-reveal animations (`whileInView`) across modalità semplice ✅
+- [x] Real profile photo wired into SimpleHome/SimpleAbout + CV ✅
+- [x] All 5 project preview images present ✅
 - [ ] Add `next.config.js` rewrites for legacy subpaths once DNS propagates
-- [ ] Add remaining preview images: quantumcrypto.png, portfolio-v1.png, osteopata.png
 - [ ] Evaluate Lenis integration
 - [ ] GSAP hero entrance animation
-- [ ] `/contact` — consider adding LinkedIn if account exists
 - [ ] Test on real device (iPhone) after DNS switch
+- [ ] Delete unused `public/previews/fotoale.jpeg` (superseded by `profilo-pic.png`)
+
+### Job search (parallel track — not code, but active)
+- [x] New modern CV (`cv_sparano_semplice.pdf`) — used going forward for applications
+- [ ] **Tomorrow**: connect Claude in Chrome (Brave) to LinkedIn, Twine and Indeed profiles — review current content, propose updated text in chat, edit **only after per-section confirmation** (no bulk auto-edit; no login on the user's behalf)
+- [ ] **Tomorrow**: draft tailored cover letters for Accenture and Eng.it (Ingegneria Informatica) from the new CV, walk through each application form together — **explicit confirmation required before any submit click**, applications aren't reversible once sent
 
 ---
 
@@ -297,8 +360,11 @@ Likely low impact given the full-page layout. Evaluate when /projects gets longe
 
 - No macOS traffic-light window controls
 - No TypeScript, no `.ts`/`.tsx`
-- Do not replicate an IDE 1:1 — it must remain a usable website
-- Do not overdo animations — blinking cursor, subtle hover, hero entrance animation. Stop there.
+- Do not replicate an IDE 1:1 in modalità dev — it must remain a usable website
+- Do not overdo animations — blinking cursor, subtle hover, entrance/reveal animation. Stop there.
 - No aggressive scroll-jacking — Lenis should make scroll smoother, not control it
 - No slow page transitions — max 300–400ms total
 - Do NOT use Tailwind v3 config syntax — this project uses v4
+- Do NOT touch `cv_sparano.pdf` / dev-mode CV download paths when changing the simple-mode CV
+- Do NOT add a `/dev/...` or `/simple/...` URL prefix — both modes must keep living at the same URLs (Search Console is already tracking them)
+- Do NOT submit any job application or publish/save an edit on LinkedIn/Indeed/Twine without an explicit per-action go-ahead in chat first
