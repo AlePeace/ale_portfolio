@@ -42,7 +42,6 @@ export const metadata = {
     "React",
     "WordPress headless",
     "Tailwind CSS",
-    "Sanity CMS",
     "Web Developer Napoli",
     "QCore Agency",
     "Portfolio",

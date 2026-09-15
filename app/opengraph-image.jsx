@@ -32,46 +32,42 @@ export default function OgImage() {
         {/* JSDoc block */}
         <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 40 }}>
           <div style={{ color: "#3d4872", fontSize: 20, fontStyle: "italic" }}>{"/**"}</div>
-          <div style={{ color: "#3d4872", fontSize: 20, fontStyle: "italic", paddingLeft: 8 }}>
-            {" * "}
-            <span style={{ color: "#c792ea" }}>@name</span>
-            <span style={{ color: "#3d4872" }}>{"     Alessandro Sparano"}</span>
+          <div style={{ display: "flex", color: "#3d4872", fontSize: 20, fontStyle: "italic", paddingLeft: 8 }}>
+            <span style={{ marginRight: 8 }}>{" *"}</span>
+            <span style={{ color: "#c792ea", width: 110 }}>@name</span>
+            <span style={{ color: "#3d4872" }}>Alessandro Sparano</span>
           </div>
-          <div style={{ color: "#3d4872", fontSize: 20, fontStyle: "italic", paddingLeft: 8 }}>
-            {" * "}
-            <span style={{ color: "#c792ea" }}>@role</span>
-            <span style={{ color: "#3d4872" }}>{"     Creative Developer"}</span>
+          <div style={{ display: "flex", color: "#3d4872", fontSize: 20, fontStyle: "italic", paddingLeft: 8 }}>
+            <span style={{ marginRight: 8 }}>{" *"}</span>
+            <span style={{ color: "#c792ea", width: 110 }}>@role</span>
+            <span style={{ color: "#3d4872" }}>Creative Developer</span>
           </div>
-          <div style={{ color: "#3d4872", fontSize: 20, fontStyle: "italic", paddingLeft: 8 }}>
-            {" * "}
-            <span style={{ color: "#c792ea" }}>@agency</span>
-            <span style={{ color: "#3d4872" }}>{"   QCore Agency · Napoli"}</span>
+          <div style={{ display: "flex", color: "#3d4872", fontSize: 20, fontStyle: "italic", paddingLeft: 8 }}>
+            <span style={{ marginRight: 8 }}>{" *"}</span>
+            <span style={{ color: "#c792ea", width: 110 }}>@agency</span>
+            <span style={{ color: "#3d4872" }}>QCore Agency · Napoli</span>
           </div>
           <div style={{ color: "#3d4872", fontSize: 20, fontStyle: "italic" }}>{"  */"}</div>
         </div>
 
         {/* const block */}
         <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          <div style={{ fontSize: 26 }}>
-            <span style={{ color: "#c792ea" }}>{"const "}</span>
-            <span style={{ color: "#ffcb6b" }}>{"Alessandro"}</span>
-            <span style={{ color: "#cdd6f4" }}>{" = {"}</span>
+          <div style={{ display: "flex", gap: 6, fontSize: 26 }}>
+            <span style={{ color: "#c792ea" }}>const</span>
+            <span style={{ color: "#ffcb6b" }}>Alessandro</span>
+            <span style={{ color: "#cdd6f4" }}>{"= {"}</span>
           </div>
-          <div style={{ fontSize: 24, paddingLeft: 40 }}>
-            <span style={{ color: "#89ddff" }}>{"stack"}</span>
-            <span style={{ color: "#cdd6f4" }}>{":  [ "}</span>
-            <span style={{ color: "#c3e88d" }}>{"'Next.js'"}</span>
-            <span style={{ color: "#cdd6f4" }}>{", "}</span>
-            <span style={{ color: "#c3e88d" }}>{"'React'"}</span>
-            <span style={{ color: "#cdd6f4" }}>{", "}</span>
+          <div style={{ display: "flex", gap: 6, fontSize: 24, paddingLeft: 40 }}>
+            <span style={{ color: "#89ddff" }}>stack:</span>
+            <span style={{ color: "#cdd6f4" }}>{"["}</span>
+            <span style={{ color: "#c3e88d" }}>{"'Next.js',"}</span>
+            <span style={{ color: "#c3e88d" }}>{"'React',"}</span>
             <span style={{ color: "#c3e88d" }}>{"'WordPress'"}</span>
-            <span style={{ color: "#cdd6f4" }}>{" ],"}</span>
+            <span style={{ color: "#cdd6f4" }}>{"],"}</span>
           </div>
-          <div style={{ fontSize: 24, paddingLeft: 40 }}>
-            <span style={{ color: "#89ddff" }}>{"status"}</span>
-            <span style={{ color: "#cdd6f4" }}>{": "}</span>
-            <span style={{ color: "#4ec9b0" }}>{"'available'"}</span>
-            <span style={{ color: "#cdd6f4" }}>{","}</span>
+          <div style={{ display: "flex", gap: 6, fontSize: 24, paddingLeft: 40 }}>
+            <span style={{ color: "#89ddff" }}>status:</span>
+            <span style={{ color: "#4ec9b0" }}>{"'available',"}</span>
           </div>
           <div style={{ color: "#cdd6f4", fontSize: 26 }}>{"}"}</div>
         </div>

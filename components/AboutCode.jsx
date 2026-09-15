@@ -30,6 +30,7 @@ const lines = [
   [{ t: "  web", c: T.p }, { t: ":    ", c: T.tx }, { t: "'alessandrosparano.com'", c: T.s }, { t: ",", c: T.tx }],
   [{ t: "  github", c: T.p }, { t: ": ", c: T.tx }, { t: "'github.com/AlePeace'", c: T.s }, { t: ",", c: T.tx }],
   [{ t: "}", c: T.tx }],
+  [{ t: "// questo portfolio: Next.js, hostato su Vercel", c: T.c }],
   null,
 
   // ── story ──────────────────────────────────────────────────────
@@ -41,8 +42,8 @@ const lines = [
   [{ t: "  che la parte che mi piaceva di più era scrivere codice.", c: T.s }],
   null,
   [{ t: "  Ora in QCore Agency faccio quello che mi piace di più:", c: T.s }],
-  [{ t: "  trasformare idee in interfacce. WordPress headless,", c: T.s }],
-  [{ t: "  Next.js, React — ma sempre con un occhio al design.", c: T.s }],
+  [{ t: "  trasformare idee in interfacce. WordPress (temi custom", c: T.s }],
+  [{ t: "  e semplici), con sperimentazioni in Next.js headless.", c: T.s }],
   null,
   [{ t: "  Mi interessa il punto in cui design e codice si toccano.", c: T.s }],
   [{ t: "  Dove un'animazione ha senso. Dove la tipografia conta.", c: T.s }],
@@ -60,7 +61,8 @@ const lines = [
   [{ t: "    role", c: T.p }, { t: ":    ", c: T.tx }, { t: "'Web Developer'", c: T.s }, { t: ",", c: T.tx }],
   [{ t: "    company", c: T.p }, { t: ": ", c: T.tx }, { t: "'QCore Agency'", c: T.s }, { t: ",", c: T.tx }],
   [{ t: "    period", c: T.p }, { t: ":  ", c: T.tx }, { t: "'2024 → now'", c: T.s }, { t: ",", c: T.tx }],
-  [{ t: "    stack", c: T.p }, { t: ":   ", c: T.tx }, { t: "[ ", c: T.tx }, { t: "'WordPress'", c: T.s }, { t: ", ", c: T.tx }, { t: "'Next.js'", c: T.s }, { t: ", ", c: T.tx }, { t: "'WPGraphQL'", c: T.s }, { t: ", ", c: T.tx }, { t: "'Sanity'", c: T.s }, { t: " ]", c: T.tx }, { t: ",", c: T.tx }],
+  [{ t: "    stack", c: T.p }, { t: ":   ", c: T.tx }, { t: "[ ", c: T.tx }, { t: "'WordPress'", c: T.s }, { t: ", ", c: T.tx }, { t: "'Temi custom'", c: T.s }, { t: ", ", c: T.tx }, { t: "'WPGraphQL'", c: T.s }, { t: " ]", c: T.tx }, { t: ",", c: T.tx }],
+  [{ t: "    experimental", c: T.p }, { t: ": ", c: T.tx }, { t: "[ ", c: T.tx }, { t: "'Next.js'", c: T.s }, { t: ", ", c: T.tx }, { t: "'WordPress headless'", c: T.s }, { t: " ]", c: T.tx }, { t: ",", c: T.tx }],
   [{ t: "    focus", c: T.p }, { t: ":   ", c: T.tx }, { t: "[ ", c: T.tx }, { t: "'e-commerce'", c: T.s }, { t: ", ", c: T.tx }, { t: "'hospitality'", c: T.s }, { t: ", ", c: T.tx }, { t: "'electoral'", c: T.s }, { t: ", ", c: T.tx }, { t: "'AGID'", c: T.s }, { t: ", ", c: T.tx }, { t: "'GDPR'", c: T.s }, { t: " ]", c: T.tx }, { t: ",", c: T.tx }],
   [{ t: "  },", c: T.tx }],
   [{ t: "  {", c: T.tx }],

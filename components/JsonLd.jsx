@@ -22,7 +22,7 @@ export default function JsonLd() {
     },
     knowsAbout: [
       "Next.js", "React", "WordPress", "JavaScript",
-      "Tailwind CSS", "Sanity CMS", "UI Design", "Frontend Development",
+      "Tailwind CSS", "UI Design", "Frontend Development",
     ],
   }
 

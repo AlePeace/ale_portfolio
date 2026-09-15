@@ -6,7 +6,7 @@ export async function fetchSkills({ stack, passion, agency }) {
     agency,
     languages: ["JavaScript", "PHP", "HTML5", "CSS3"],
     frameworks: ["Next.js", "React"],
-    cms: ["WordPress (tema custom)", "Headless WordPress", "Sanity"],
+    cms: ["WordPress (tema custom)", "WordPress (tema semplice)", "Headless WordPress"],
     styling: ["Tailwind CSS", "Sass", "CSS3"],
     animations: ["GSAP", "Framer Motion"],
     tools: ["Git", "GitHub", "Vercel", "Figma"],

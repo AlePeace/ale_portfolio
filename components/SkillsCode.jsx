@@ -79,9 +79,9 @@ const lines = [
     { t: ":        [ ", c: T.tx },
     { t: "'WordPress (tema custom)'", c: T.s },
     { t: ", ", c: T.tx },
-    { t: "'Headless WordPress'", c: T.s },
+    { t: "'WordPress (tema semplice)'", c: T.s },
     { t: ", ", c: T.tx },
-    { t: "'Sanity'", c: T.s },
+    { t: "'Headless WordPress'", c: T.s },
     { t: " ],", c: T.tx },
   ],
   [

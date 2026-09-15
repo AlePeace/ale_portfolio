@@ -25,7 +25,7 @@ const lines = [
   [{ t: "import", c: T.k }, { t: " ", c: T.tx }, { t: "Hero", c: T.cl }, { t: " ", c: T.tx }, { t: "from", c: T.k }, { t: " ", c: T.tx }, { t: "'@/components/Hero'", c: T.s }],
   null,
   [{ t: "const", c: T.k }, { t: " skills = ", c: T.tx }, { t: "await", c: T.k }, { t: " ", c: T.tx }, { t: "fetchSkills", c: T.f, href: "/skills" }, { t: "({", c: T.tx }],
-  [{ t: "  ", c: T.tx }, { t: "stack", c: T.p }, { t: ":   [ ", c: T.tx }, { t: "'Next.js'", c: T.s }, { t: ", ", c: T.tx }, { t: "'React'", c: T.s }, { t: ", ", c: T.tx }, { t: "'Sanity'", c: T.s }, { t: ", ", c: T.tx }, { t: "'Vercel'", c: T.s }, { t: " ],", c: T.tx }],
+  [{ t: "  ", c: T.tx }, { t: "stack", c: T.p }, { t: ":   [ ", c: T.tx }, { t: "'Next.js'", c: T.s }, { t: ", ", c: T.tx }, { t: "'React'", c: T.s }, { t: ", ", c: T.tx }, { t: "'WordPress'", c: T.s }, { t: ", ", c: T.tx }, { t: "'Vercel'", c: T.s }, { t: " ],", c: T.tx }],
   [{ t: "  ", c: T.tx }, { t: "passion", c: T.p }, { t: ": [ ", c: T.tx }, { t: "'UI craftmanship'", c: T.s }, { t: ", ", c: T.tx }, { t: "'clean code'", c: T.s }, { t: " ],", c: T.tx }],
   [{ t: "  ", c: T.tx }, { t: "agency", c: T.p }, { t: ":  ", c: T.tx }, { t: "true", c: T.k }, { t: ",", c: T.tx }],
   [{ t: "})", c: T.tx }],
