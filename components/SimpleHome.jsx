@@ -42,7 +42,7 @@ const services = [
 const skills = [
   { label: "Next.js", color: "text-mint border-mint" },
   { label: "React", color: "text-mint border-mint" },
-  { label: "WordPress headless", color: "text-accent-teal border-accent-teal" },
+  { label: "Sanity CMS", color: "text-accent-teal border-accent-teal" },
   { label: "Tailwind CSS", color: "text-accent-teal border-accent-teal" },
   { label: "Framer Motion", color: "text-accent-orange border-accent-orange" },
   { label: "Three.js — in arrivo", color: "text-accent-violet border-accent-violet" },
@@ -116,8 +116,8 @@ export default function SimpleHome() {
             dove ho scoperto che la parte che amavo di più era scrivere codice.
           </p>
           <p className="text-[16px] leading-[1.8] text-ink-soft mb-5">
-            Oggi in QCore Agency trasformo idee in interfacce: WordPress headless, Next.js, React —
-            sempre con un occhio al design e alla tipografia.
+            Oggi lavoro in QCore Agency, soprattutto su WordPress con tema custom. Per i miei progetti uso Next.js e Sanity: veloci, fatti su
+            misura, e con i contenuti che il cliente può cambiare da solo.
           </p>
           <Link href="/about" className="font-bold text-accent-teal hover:opacity-75 transition-opacity">
             Scopri di più su di me →

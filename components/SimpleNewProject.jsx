@@ -4,17 +4,18 @@ import { motion } from "framer-motion"
 
 const starters = [
   {
-    name: "Next.js",
+    name: "Next.js + Sanity",
     color: "border-mint text-mint",
     bg: "bg-mint",
-    desc: "Sito o web app moderna, veloce, ottima per SEO. Ideale se serve qualcosa di su misura, animato, o con logica applicativa.",
-    includes: ["App Router", "Componenti riutilizzabili", "Animazioni", "Deploy su Vercel"],
+    desc: "Il modo in cui lavoro oggi. Sito veloce e fatto su misura, e i contenuti (testi, foto, progetti) li modifichi tu da un pannello semplice, senza toccare codice.",
+    includes: ["Next.js + Sanity CMS", "Pannello contenuti tuo", "Animazioni", "Deploy su Vercel"],
   },
   {
     name: "WordPress",
+    note: "Alternativa",
     color: "border-accent-teal text-accent-teal",
     bg: "bg-accent-teal",
-    desc: "Sito gestibile in autonomia una volta consegnato: articoli, pagine, contenuti — tutto editabile senza toccare codice.",
+    desc: "Se hai già un sito WordPress o ti serve proprio quello, lo faccio volentieri: tema custom, gestibile in autonomia.",
     includes: ["Tema custom", "Pannello di gestione", "Plugin su misura", "Hosting tradizionale"],
   },
 ]
@@ -50,6 +51,7 @@ export default function SimpleNewProject() {
             <span className={`inline-block text-[12px] font-bold uppercase tracking-[.08em] border rounded-full px-3.5 py-1.5 mb-5 ${s.color}`}>
               {s.name}
             </span>
+            {s.note && <span className="ml-2 text-[12px] text-ink-soft">{s.note}</span>}
             <p className="text-[14px] leading-relaxed text-ink-soft mb-5">{s.desc}</p>
             <div className="flex flex-col gap-2">
               {s.includes.map((i) => (

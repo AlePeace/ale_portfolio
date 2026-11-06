@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 const groups = [
   { label: "Linguaggi", items: ["JavaScript", "PHP", "HTML5", "CSS3"], color: "border-mint text-mint" },
   { label: "Framework", items: ["Next.js", "React"], color: "border-mint text-mint" },
-  { label: "CMS", items: ["WordPress (tema custom)", "WordPress (tema semplice)", "Headless WordPress"], color: "border-accent-teal text-accent-teal" },
+  { label: "CMS", items: ["Sanity", "WordPress (tema custom)", "Headless WordPress"], color: "border-accent-teal text-accent-teal" },
   { label: "Styling", items: ["Tailwind CSS", "Sass", "CSS3"], color: "border-accent-teal text-accent-teal" },
   { label: "Animazioni", items: ["GSAP", "Framer Motion"], color: "border-accent-orange text-accent-orange" },
   { label: "Tools", items: ["Git", "GitHub", "Vercel", "Figma"], color: "border-accent-violet text-accent-violet" },

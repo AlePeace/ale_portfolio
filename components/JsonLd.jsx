@@ -21,7 +21,7 @@ export default function JsonLd() {
       addressCountry:    "IT",
     },
     knowsAbout: [
-      "Next.js", "React", "WordPress", "JavaScript",
+      "Next.js", "React", "Sanity", "WordPress", "JavaScript",
       "Tailwind CSS", "UI Design", "Frontend Development",
     ],
   }

@@ -8,7 +8,7 @@ const experience = [
     role: "Web Developer",
     company: "QCore Agency",
     period: "2024 → oggi",
-    tags: ["WordPress", "Temi custom", "WPGraphQL", "Next.js (sperimentale)"],
+    tags: ["WordPress", "Tema custom", "Siti vetrina", "E-commerce", "Strutture ricettive", "Front-end Cilento Horizon"],
   },
   {
     role: "Designer",
@@ -81,10 +81,10 @@ export default function SimpleAbout() {
           di più era scrivere codice.
         </p>
         <p className="text-[16px] leading-[1.8] text-ink-soft max-w-[620px] mb-4">
-          Ora in QCore Agency faccio quello che mi piace di più: trasformare idee in interfacce.
-          WordPress (temi custom e semplici) come base principale, con sperimentazioni in Next.js
-          headless — ma sempre con un occhio al design. Questo stesso portfolio, ad esempio, è
-          sviluppato interamente in Next.js e ospitato su Vercel.
+          Ora lavoro in QCore Agency, dove faccio soprattutto siti WordPress con tema custom: siti
+          vetrina, e-commerce, siti per strutture ricettive e il front-end di Cilento Horizon. Per i miei progetti
+          invece uso Next.js con Sanity come CMS: il sito è veloce e fatto su misura, e chi lo gestisce
+          cambia testi e immagini da solo. Questo portfolio è in Next.js, su Vercel.
         </p>
         <p className="text-[16px] leading-[1.8] text-ink-soft max-w-[620px]">
           Mi interessa il punto in cui design e codice si toccano. Dove un&apos;animazione ha senso,

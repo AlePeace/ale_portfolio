@@ -62,7 +62,7 @@ export default function OgImage() {
             <span style={{ color: "#cdd6f4" }}>{"["}</span>
             <span style={{ color: "#c3e88d" }}>{"'Next.js',"}</span>
             <span style={{ color: "#c3e88d" }}>{"'React',"}</span>
-            <span style={{ color: "#c3e88d" }}>{"'WordPress'"}</span>
+            <span style={{ color: "#c3e88d" }}>{"'Sanity'"}</span>
             <span style={{ color: "#cdd6f4" }}>{"],"}</span>
           </div>
           <div style={{ display: "flex", gap: 6, fontSize: 24, paddingLeft: 40 }}>

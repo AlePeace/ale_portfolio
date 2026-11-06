@@ -23,15 +23,11 @@ export default function Gateway() {
           />
         </h1>
 
-        <p className="mt-8 text-[15px] leading-relaxed text-[#eceef4]/60 max-w-[380px]">
-          Stesso lavoro, due modalità. Scegli la tua.
-        </p>
-
-        <div className="mt-11 flex flex-col sm:flex-row gap-5">
+        <div className="mt-12 flex flex-col sm:flex-row gap-5">
           <a
             href="/"
             onClick={() => setModeCookie("simple")}
-            className="w-[240px] rounded-[20px] px-6 py-7 flex flex-col items-center gap-2.5 shadow-[0_16px_32px_-14px_rgba(0,0,0,0.5)]"
+            className="w-[240px] rounded-[20px] px-6 py-6 flex flex-col items-center gap-2.5 shadow-[0_16px_32px_-14px_rgba(0,0,0,0.5)]"
             style={{ background: "#4c8dff" }}
           >
             <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
@@ -39,20 +35,18 @@ export default function Gateway() {
               <path d="M4 22C4 17.6 8 15 13 15C18 15 22 17.6 22 22" stroke="#0d0f16" strokeWidth="1.8" strokeLinecap="round" />
             </svg>
             <span className="font-heading font-bold text-[19px] text-[#0d0f16]">Modalità Visuale</span>
-            <span className="text-[12.5px] font-medium text-[#0d0f16]/70">grafica, immediata, per tutti</span>
           </a>
 
           <a
             href="/"
             onClick={() => setModeCookie("dev")}
-            className="w-[240px] rounded-[20px] px-6 py-7 flex flex-col items-center gap-2.5 shadow-[0_16px_32px_-14px_rgba(0,0,0,0.5)]"
+            className="w-[240px] rounded-[20px] px-6 py-6 flex flex-col items-center gap-2.5 shadow-[0_16px_32px_-14px_rgba(0,0,0,0.5)]"
             style={{ background: "#f65ca6" }}
           >
             <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
               <path d="M9 6L2 13L9 20M17 6L24 13L17 20" stroke="#0d0f16" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <span className="font-heading font-bold text-[19px] text-[#0d0f16]">Modalità dev</span>
-            <span className="text-[12.5px] font-medium text-[#0d0f16]/70">IDE, terminale, tutto acceso</span>
           </a>
         </div>
 

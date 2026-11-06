@@ -9,7 +9,7 @@ import Gateway from "@/components/Gateway"
 
 async function DevHome() {
   const skills = await fetchSkills({
-    stack:   ["Next.js", "React", "WordPress", "Vercel"],
+    stack:   ["Next.js", "React", "Sanity", "Vercel"],
     passion: ["UI craftmanship", "clean code"],
     agency:  true,
   })

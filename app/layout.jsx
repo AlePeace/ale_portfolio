@@ -33,14 +33,15 @@ export const metadata = {
     template: "%s — Alessandro Sparano",
   },
   description:
-    "Creative Developer presso QCore Agency, Napoli. Specializzato in Next.js, React e WordPress headless. Portfolio di progetti web, UI design e frontend moderno.",
+    "Creative Developer presso QCore Agency, Napoli. Siti in Next.js + Sanity CMS, React. Portfolio di progetti web, UI design e frontend moderno.",
   keywords: [
     "Alessandro Sparano",
     "Creative Developer",
     "Frontend Developer",
     "Next.js",
     "React",
-    "WordPress headless",
+    "Sanity CMS",
+    "Next.js Sanity",
     "Tailwind CSS",
     "Web Developer Napoli",
     "QCore Agency",
@@ -55,13 +56,13 @@ export const metadata = {
     url:         BASE_URL,
     siteName:    "Alessandro Sparano",
     title:       "Alessandro Sparano — Creative Developer",
-    description: "Creative Developer @ QCore Agency. Next.js, React, WordPress headless. Napoli, Italia.",
+    description: "Creative Developer @ QCore Agency. Next.js, Sanity, React. Napoli, Italia.",
   },
 
   twitter: {
     card:        "summary_large_image",
     title:       "Alessandro Sparano — Creative Developer",
-    description: "Creative Developer @ QCore Agency. Next.js, React, WordPress headless.",
+    description: "Creative Developer @ QCore Agency. Next.js, Sanity, React.",
   },
 
   robots: {
