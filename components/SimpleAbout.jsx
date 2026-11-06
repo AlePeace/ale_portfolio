@@ -76,20 +76,20 @@ export default function SimpleAbout() {
         </div>
 
         <p className="text-[16px] leading-[1.8] text-ink-soft max-w-[620px] mb-4">
-          Vengo dal design — triennale e magistrale in Design &amp; Communication e Design X Innovation
-          alla Vanvitelli. Poi ILAS Academy (110/110 con lode), dove ho capito che la parte che mi piaceva
-          di più era scrivere codice.
+          Ho studiato design alla Vanvitelli: triennale in Design &amp; Communication, magistrale in
+          Design X Innovation. Poi l&apos;ILAS Academy (110/110 con lode), dove ho capito che la parte
+          che mi piaceva di più era scrivere codice.
         </p>
         <p className="text-[16px] leading-[1.8] text-ink-soft max-w-[620px] mb-4">
-          Ora lavoro in QCore Agency, dove faccio soprattutto siti WordPress con tema custom: siti
-          vetrina, e-commerce, siti per strutture ricettive e il front-end di Cilento Horizon. Per i miei progetti
-          invece uso Next.js con Sanity come CMS: il sito è veloce e fatto su misura, e chi lo gestisce
-          cambia testi e immagini da solo. Questo portfolio è in Next.js, su Vercel.
+          Oggi lavoro in QCore Agency. Faccio soprattutto siti WordPress con tema custom: siti vetrina,
+          e-commerce, siti per strutture ricettive, e ho curato il front-end di Cilento Horizon. Per i
+          miei progetti uso Next.js con Sanity: il sito è veloce e su misura, e chi lo gestisce cambia
+          testi e immagini da solo. Anche questo portfolio è fatto in Next.js.
         </p>
         <p className="text-[16px] leading-[1.8] text-ink-soft max-w-[620px]">
-          Mi interessa il punto in cui design e codice si toccano. Dove un&apos;animazione ha senso,
-          dove la tipografia conta. Passioni: UI craftmanship, 3D web (Three.js, in arrivo),
-          performance, tipografia — e qualsiasi cosa sembri impossibile da fare bene nel browser.
+          Del mio lavoro mi piace soprattutto la parte in cui design e codice si incontrano:
+          un&apos;animazione messa al posto giusto, un testo che si legge bene. In questo periodo sto
+          studiando Three.js, per portare un po&apos; di 3D nei siti.
         </p>
       </motion.section>
 

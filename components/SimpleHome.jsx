@@ -7,7 +7,7 @@ import { motion } from "framer-motion"
 const services = [
   {
     title: "Design",
-    body: "Interfacce chiare e curate, pensate per chi le usa prima ancora che per chi le guarda.",
+    body: "Parto da cosa ti serve e da chi visiterà il sito. Il design viene da lì, non dalle mode del momento.",
     bg: "bg-mint",
     icon: (
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
@@ -18,7 +18,7 @@ const services = [
   },
   {
     title: "Sviluppo",
-    body: "Ogni idea diventa un sito vero: veloce, solido, e facile da mantenere nel tempo.",
+    body: "Siti veloci e solidi, fatti per durare. Se vuoi, i contenuti li aggiorni tu, senza dover chiamare nessuno.",
     bg: "bg-accent-orange",
     icon: (
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
@@ -27,8 +27,8 @@ const services = [
     ),
   },
   {
-    title: "Entrambi, insieme",
-    body: "Design e codice seguiti dalla stessa persona: niente si perde nel passaggio tra i due.",
+    title: "Una persona sola",
+    body: "Design e sviluppo li seguo io. Hai un solo riferimento e niente si perde per strada.",
     bg: "bg-accent-violet",
     icon: (
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
@@ -72,11 +72,11 @@ export default function SimpleHome() {
           Creative Developer · QCore Agency · Napoli
         </span>
         <h1 className="font-heading font-bold text-[36px] sm:text-[52px] leading-[1.1] max-w-[780px] mb-5">
-          Trasformo idee in interfacce che le persone capiscono al primo sguardo.
+          Progetto e sviluppo siti web. Chiari, veloci e facili da gestire.
         </h1>
         <p className="text-[16px] sm:text-[18px] leading-relaxed text-ink-soft max-w-[580px] mb-9">
-          Vengo dal design, oggi scrivo codice. Costruisco siti e prodotti digitali chiari,
-          veloci e curati nei dettagli — dal wireframe alla riga di codice.
+          Mi chiamo Alessandro, vengo dal design e oggi scrivo codice. Seguo il progetto
+          dall&apos;inizio alla fine e ti spiego ogni passaggio, senza paroloni.
         </p>
         <div className="flex flex-wrap items-center gap-4">
           <Link href="/projects" className="bg-ink text-paper font-bold text-[15px] rounded-lg px-6 py-3.5">
@@ -112,15 +112,17 @@ export default function SimpleHome() {
         <div>
           <div className="text-[12px] font-bold uppercase tracking-[.14em] text-accent-teal mb-4">Chi sono</div>
           <p className="text-[16px] leading-[1.8] text-ink-soft mb-4">
-            Vengo dal design — triennale e magistrale alla Vanvitelli, poi ILAS Academy (110/110 con lode),
-            dove ho scoperto che la parte che amavo di più era scrivere codice.
+            Ho studiato design alla Vanvitelli, triennale e magistrale. Poi all&apos;ILAS Academy
+            (110/110 con lode) ho scoperto che la parte che mi piaceva di più era scrivere codice,
+            e da lì non ho più smesso.
           </p>
           <p className="text-[16px] leading-[1.8] text-ink-soft mb-5">
-            Oggi lavoro in QCore Agency, soprattutto su WordPress con tema custom. Per i miei progetti uso Next.js e Sanity: veloci, fatti su
-            misura, e con i contenuti che il cliente può cambiare da solo.
+            Oggi lavoro in QCore Agency, soprattutto su siti WordPress con tema custom. Per i miei
+            progetti uso Next.js e Sanity: siti veloci, fatti su misura, con contenuti che il cliente
+            cambia da solo.
           </p>
           <Link href="/about" className="font-bold text-accent-teal hover:opacity-75 transition-opacity">
-            Scopri di più su di me →
+            Leggi di più su di me →
           </Link>
         </div>
       </motion.section>

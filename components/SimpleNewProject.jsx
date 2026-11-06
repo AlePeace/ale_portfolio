@@ -7,7 +7,7 @@ const starters = [
     name: "Next.js + Sanity",
     color: "border-mint text-mint",
     bg: "bg-mint",
-    desc: "Il modo in cui lavoro oggi. Sito veloce e fatto su misura, e i contenuti (testi, foto, progetti) li modifichi tu da un pannello semplice, senza toccare codice.",
+    desc: "È il modo in cui lavoro oggi. Il sito è veloce e fatto su misura, e testi, foto e progetti li cambi tu da un pannello semplice, senza toccare codice.",
     includes: ["Next.js + Sanity CMS", "Pannello contenuti tuo", "Animazioni", "Deploy su Vercel"],
   },
   {
@@ -41,7 +41,7 @@ export default function SimpleNewProject() {
       <motion.div variants={item} className="mb-12">
         <div className="text-[12px] font-bold uppercase tracking-[.14em] text-accent-teal mb-4">Nuovo progetto</div>
         <h1 className="font-heading font-bold text-[30px] sm:text-[40px] leading-[1.15] max-w-[560px]">
-          Scegli da dove partire — decidiamo il resto insieme.
+          Due modi di fare il tuo sito. Il resto lo decidiamo insieme.
         </h1>
       </motion.div>
 
@@ -67,7 +67,7 @@ export default function SimpleNewProject() {
 
       <motion.div variants={item} className="max-w-[480px]">
         <p className="text-[16px] leading-relaxed text-ink-soft mb-6">
-          Non sai quale scegliere? Nessun problema — dimmi che progetto hai in mente e partiamo da lì.
+          Non sai quale fa per te? È normale. Raccontami cosa ti serve e ti consiglio io.
         </p>
         <a
           href="mailto:aledev@alessandrosparano.com"

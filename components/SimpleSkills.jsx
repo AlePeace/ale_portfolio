@@ -34,7 +34,7 @@ export default function SimpleSkills() {
       <motion.div variants={item} className="mb-12">
         <div className="text-[12px] font-bold uppercase tracking-[.14em] text-accent-teal mb-4">Cosa uso</div>
         <h1 className="font-heading font-bold text-[30px] sm:text-[40px] leading-[1.15] max-w-[560px]">
-          Stack, strumenti e qualche soft skill.
+          Gli strumenti che uso ogni giorno, e qualcosa che non è codice.
         </h1>
       </motion.div>
 

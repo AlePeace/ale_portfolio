@@ -10,7 +10,7 @@ const projects = [
     name: "Mosic",
     type: "Progetto ILAS",
     status: "Mockup",
-    desc: "App di streaming musicale — concept UI/UX. Mockup ad alta fedeltà, non deployato.",
+    desc: "Concept di un'app di streaming musicale. Esiste solo come mockup: l'ho progettata, ma non è stata sviluppata.",
     stack: ["Figma", "UI Design", "UX"],
     url: null,
     preview: "/previews/mosic.png",
@@ -20,7 +20,7 @@ const projects = [
     name: "SoundPop Radio",
     type: "Progetto ILAS",
     status: "Live",
-    desc: "Radio web con player custom e visualizzazione tracce in tempo reale.",
+    desc: "Una web radio con player personalizzato e le tracce mostrate in tempo reale.",
     stack: ["HTML", "CSS", "JavaScript"],
     url: "https://legacy.alessandrosparano.com/soundpopradio",
     preview: "/previews/soundpopradio.png",
@@ -30,7 +30,7 @@ const projects = [
     name: "QuantumCrypto",
     type: "Progetto ILAS",
     status: "Live",
-    desc: "Dashboard crypto con prezzi live e visualizzazione dati di mercato.",
+    desc: "Una dashboard con i prezzi delle crypto e i dati di mercato aggiornati in tempo reale.",
     stack: ["HTML", "CSS", "JavaScript"],
     url: "https://legacy.alessandrosparano.com/quantumcrypto",
     preview: "/previews/quantumcrypto.png",
@@ -40,7 +40,7 @@ const projects = [
     name: "Portfolio v1",
     type: "Personale",
     status: "Legacy",
-    desc: "Primo portfolio personale. Tema WordPress custom, sviluppato durante ILAS.",
+    desc: "Il mio primo portfolio, fatto durante l'ILAS con un tema WordPress scritto da me.",
     stack: ["WordPress", "PHP", "CSS"],
     url: "https://legacy.alessandrosparano.com/portfolio",
     preview: "/previews/portfolio-v1.png",
@@ -50,7 +50,7 @@ const projects = [
     name: "Studio Osteopata",
     type: "Collaborazione",
     status: "Live",
-    desc: "Sito per studio di osteopatia, in collaborazione con Francesco Li Petri.",
+    desc: "Il sito di uno studio di osteopatia, fatto insieme a Francesco Li Petri.",
     stack: ["WordPress", "PHP", "CSS", "Elementor"],
     url: "https://elisasaviano.it/",
     preview: "/previews/osteopata.png",
@@ -76,7 +76,7 @@ export default function SimpleProjects() {
       <motion.section initial="hidden" whileInView="visible" viewport={inView} variants={reveal} className="px-6 sm:px-16 pt-8 pb-4">
         <div className="text-[12px] font-bold uppercase tracking-[.14em] text-accent-teal mb-4">Progetti</div>
         <h1 className="font-heading font-bold text-[30px] sm:text-[40px] leading-[1.15] max-w-[560px]">
-          Una selezione di lavori, tra studio e collaborazioni vere.
+          Alcuni lavori, dai progetti di studio a quelli per clienti veri.
         </h1>
       </motion.section>
 

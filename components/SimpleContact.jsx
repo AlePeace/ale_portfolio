@@ -34,7 +34,7 @@ export default function SimpleContact() {
           Hai un progetto in mente? Parliamone.
         </h1>
         <p className="text-[16px] leading-relaxed text-ink-soft max-w-[480px]">
-          Scrivimi, chiamami, o trovami dove preferisci.
+          Scrivimi o chiamami: ti rispondo io, senza intermediari.
         </p>
       </motion.div>
 
